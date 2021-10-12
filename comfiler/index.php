@@ -1,12 +1,13 @@
 <?php
 	$root="comfiler/codemirror";
+	$base_root="comfiler";
 	#$theme="xq-light";
 ?>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>ComFiler</title>
-	<link href="<?php echo $root?>/css/comfiler.css" rel="stylesheet" type="text/css" />
+	<link href="<?php echo $base_root?>/css/comfiler.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="<?php echo $root?>/lib/codemirror.css">
 	<link rel=stylesheet href="<?php echo $root?>/doc/docs.css">
 	<!--<link rel=stylesheet href="<?php echo $root?>/theme/<?php echo $theme?>.css"> -->
@@ -26,8 +27,8 @@
     <script src="//code.jquery.com/jquery.min.js"></script>
 	<style>
 	  .CodeMirror { width:50%; height: auto; border: 1px solid #ddd; }
-	  .CodeMirror-scroll { max-height: 200px; }
-	  .CodeMirror pre { padding-left: 7px; line-height: 1.25; }
+	  .CodeMirror-scroll { max-height: 300px;}
+	  .CodeMirror pre { line-height: 1.25; }
 	</style>
 </head>
 <body>
@@ -47,7 +48,7 @@
 						<textarea id = "code" rows="45" cols="73">
 						</textarea>
 						<input type = "button" value = "RUN" style="padding:5px; margin:0px 10px;" onclick="get_result()">
-						<textarea id="result" rows="45" cols="73" readonly style="resize: none; padding: 15px; font-size: 16px;"></textarea>
+						<textarea id="result" rows="45" cols="73" readonly style="resize: none; padding: 15px; font-size: 16px; border: 1px solid #ddd;"></textarea>
 					</div>
 				</div>
 			</div>
@@ -81,7 +82,7 @@
 					break;
 			}
             $.ajax({
-                url: "./php/get_default_code.php",
+                url: "<?php echo $base_root?>/php/get_default_code.php",
                 type: "POST",
                 data: {
                     language: $('#language').val(),
@@ -93,7 +94,7 @@
         }
 		function get_result(){
 			$.ajax({
-                url: "./php/comfile.php",
+                url: "<?php echo $base_root?>/php/comfile.php",
                 type: "GET",
                 data: {
                     language: $('#language').val(),
