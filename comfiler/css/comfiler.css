@@ -1,0 +1,17 @@
+#main_block{
+	width: 70%;
+	height: 80%;
+	margin:0 auto;
+	padding: 50px;
+}
+#code_block{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#code_box {
+	display: flex;
+}
+textarea:focus{
+	outline: 0;
+}
