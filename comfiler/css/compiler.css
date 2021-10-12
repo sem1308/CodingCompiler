@@ -12,6 +12,10 @@
 #code_box {
 	display: flex;
 }
+
+textarea {
+	border: 1px solid black;
+}
 textarea:focus{
 	outline: 0;
 }

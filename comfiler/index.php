@@ -7,7 +7,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>ComFiler</title>
-	<link href="<?php echo $base_root?>/css/comfiler.css" rel="stylesheet" type="text/css" />
+	<link href="<?php echo $base_root?>/css/compiler.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="<?php echo $root?>/lib/codemirror.css">
 	<link rel=stylesheet href="<?php echo $root?>/doc/docs.css">
 	<!--<link rel=stylesheet href="<?php echo $root?>/theme/<?php echo $theme?>.css"> -->
@@ -26,9 +26,9 @@
 	<script src="<?php echo $root?>/addon/edit/matchbrackets.js"></script>
     <script src="//code.jquery.com/jquery.min.js"></script>
 	<style>
-	  .CodeMirror { width:50%; height: auto; border: 1px solid #ddd; }
-	  .CodeMirror-scroll { max-height: 300px;}
-	  .CodeMirror pre { line-height: 1.25; }
+	  .CodeMirror {width:50%; height: auto; border: 1px solid #ddd;}
+	  .CodeMirror-scroll {max-height: 300px;}
+	  .CodeMirror pre {line-height: 1.25; }
 	</style>
 </head>
 <body>
