@@ -1,0 +1,84 @@
+.CodeMirror {
+	border: 1px solid #ddd;
+}
+.CodeMirror-scroll {max-height: 300px;}
+
+#main_block{
+	width: 70%;
+	height: 80%;
+	margin:auto;
+	padding: 100px;
+}
+#code_block{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+#language{
+	display: block;
+	
+}
+
+#language:hover{
+	background: #F8F8FF;
+}
+
+.input_box{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+#input{
+	width: 250px; 
+	height: 265px;
+	padding: 10px;
+	resize: none;
+}
+
+.run_button{
+	width:100%;
+	padding:25px;
+	font-size: 15px;
+	background-color: #bebebe;
+	border: none;
+}
+
+.run_button:hover{
+	background-color: #aaaaaa;
+}
+
+.run_button:active{
+	background-color: #828282;
+}
+
+.return{
+	display: inline-flex;
+}
+
+.code_box{
+	
+}
+
+#result, #history{
+	background: white;
+	width: 345px; 
+	height: 300px; 
+	padding: 15px;
+	font-size: 16px;
+	border: 1px solid #ddd;
+	overflow: auto
+}
+
+.label{
+	display: flex;
+	justify-content: center;
+}
+
+textarea {
+	border: 1px solid #ddd;
+}
+select, textarea:focus{
+	outline: 0;
+}

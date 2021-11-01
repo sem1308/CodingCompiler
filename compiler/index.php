@@ -1,16 +1,14 @@
 <?php
-	$root="comfiler/codemirror";
-	$base_root="comfiler";
-	#$theme="xq-light";
+	$root="compiler/codemirror";
+	$base_root="compiler";
 ?>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>ComFiler</title>
+    <title>ComPiler</title>
 	<link href="<?php echo $base_root?>/css/compiler.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="<?php echo $root?>/lib/codemirror.css">
 	<link rel=stylesheet href="<?php echo $root?>/doc/docs.css">
-	<!--<link rel=stylesheet href="<?php echo $root?>/theme/<?php echo $theme?>.css"> -->
 	<link rel="stylesheet" href="<?php echo $root?>/addon/hint/show-hint.css">
 	<script src="<?php echo $root?>/lib/codemirror.js"></script>
 	<script src="<?php echo $root?>/addon/hint/show-hint.js"></script>
@@ -25,18 +23,13 @@
 	<script src="<?php echo $root?>/mode/htmlmixed/htmlmixed.js"></script>
 	<script src="<?php echo $root?>/addon/edit/matchbrackets.js"></script>
     <script src="//code.jquery.com/jquery.min.js"></script>
-	<style>
-	  .CodeMirror {width:50%; height: auto; border: 1px solid #ddd;}
-	  .CodeMirror-scroll {max-height: 300px;}
-	  .CodeMirror pre {line-height: 1.25; }
-	</style>
 </head>
 <body>
 	<div>
 		<div id="main_block">
 			<div id = "code_block">
-				<div>
-					<select id = "language" style="display : block" onchange='categoryChange()'>
+				<div class = "code_box">
+					<select id = "language" onchange='categoryChange()'>
 						<option value="cpp">C++</option>
 						<option value="c">C</option>
 						<option value="java">JAVA</option>
@@ -44,11 +37,22 @@
 						<option value="py">Python</option>
 						<option value="php">PHP</option>
 					</select>
-					<div id = "code_box">
-						<textarea id = "code" rows="45" cols="73">
-						</textarea>
-						<input type = "button" value = "RUN" style="padding:5px; margin:0px 10px;" onclick="get_result()">
-						<textarea id="result" rows="45" cols="73" readonly style="resize: none; padding: 15px; font-size: 16px; border: 1px solid #ddd;"></textarea>
+					<textarea id = "code" autofocus>
+					</textarea>
+				</div>
+				<div class = "return">
+					<div class = "result_box">
+						<div class = "label">Result</div>
+						<div id="result"></div>
+					</div>
+					<div class = "input_box">
+						<div class = "label">Input</div>
+						<textarea id = "input"></textarea>
+						<button type = "button" class = "run_button" onclick="get_result()">RUN</button>
+					</div>
+					<div class = "result_box">
+						<div class = "label">History</div>
+						<div id="history"></div>
 					</div>
 				</div>
 			</div>
@@ -57,10 +61,14 @@
 	<script>
 		var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
 		  	lineNumbers: true,
-			mode: document.getElementById('language').valaue,
+			indentUnit: 4,
 		  	matchBrackets: true,
-			//theme: "<?php echo $theme?>",
+			spellcheck: true,
+			autocorrect: true
 		});
+		editor.setSize(1001, 350);
+		var result;
+		var histories = [];
 		function categoryChange(){
 			let default_code;
 			let lan = $('#language').val();
@@ -86,23 +94,43 @@
                 type: "POST",
                 data: {
                     language: $('#language').val(),
-                }
-            }).done(function(data){
-                editor.setValue(data);
-				editor.setOption("mode",lan);
+                },
+				success: function(data){
+					editor.setValue(data);
+					editor.setOption("mode",lan);
+					$('#result').html("");
+					$('#history').html("");
+				}
             });
         }
 		function get_result(){
 			$.ajax({
-                url: "<?php echo $base_root?>/php/comfile.php",
+                url: "<?php echo $base_root?>/php/compile.php",
                 type: "GET",
                 data: {
                     language: $('#language').val(),
+					input: $('#input').val(),
 					value: editor.getValue(),
-                }
-            }).done(function(data){
-				$('#result').val(data);
+                },
+				success: function(data){
+					result = JSON.parse(data);
+					show_result('result');
+					histories.unshift(result);
+					show_history('history');
+				}
             });
+		}
+		function show_result(name){
+			const obj = document.getElementById(name);
+			obj.innerHTML = "<div>소요시간: "+result.runtime+"s</div>"+result.result;
+		}
+		function show_history(name){
+			let value = "";
+			const obj = document.getElementById(name);
+			histories.forEach(function(history){
+				value = value+"<div>소요시간: "+history.runtime+"s</div>"+history.result+"<br><br>";
+			})
+			obj.innerHTML=value;
 		}
 		categoryChange();
     </script>
