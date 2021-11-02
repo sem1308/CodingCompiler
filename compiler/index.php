@@ -46,7 +46,7 @@
 						<div id="result"></div>
 					</div>
 					<div class = "input_box">
-						<div class = "label">Input</div>
+						<div class = "label" style = "border-bottom: 1px solid #ddd;">Input</div>
 						<textarea id = "input"></textarea>
 						<button type = "button" class = "run_button" onclick="get_result()">RUN</button>
 					</div>
@@ -104,6 +104,8 @@
             });
         }
 		function get_result(){
+			const obj = document.getElementById('result');
+			obj.innerHTML = "<span style = \"font-size: 14px\">roading...</span>";
 			$.ajax({
                 url: "<?php echo $base_root?>/php/compile.php",
                 type: "GET",

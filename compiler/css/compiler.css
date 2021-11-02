@@ -34,7 +34,7 @@
 	width: 250px; 
 	height: 265px;
 	padding: 10px;
-	resize: none;
+	border: none;
 }
 
 .run_button{
@@ -55,6 +55,7 @@
 
 .return{
 	display: inline-flex;
+	font-family: sans-serif;
 }
 
 .code_box{
@@ -66,7 +67,7 @@
 	width: 345px; 
 	height: 300px; 
 	padding: 15px;
-	font-size: 16px;
+	font-size: 13px;
 	border: 1px solid #ddd;
 	overflow: auto
 }
@@ -74,11 +75,13 @@
 .label{
 	display: flex;
 	justify-content: center;
+	width: 100%;
 }
 
-textarea {
-	border: 1px solid #ddd;
+textarea{
+	resize: none;
 }
+
 select, textarea:focus{
 	outline: 0;
 }
