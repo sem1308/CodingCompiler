@@ -13,7 +13,7 @@
 				$result = $error;
 			}else{
 				$start = microtime(true);
-				$result = shell_exec("echo $input|cd $link; java newfile 2>&1");
+				$result = shell_exec("cd $link; echo $input|java newfile 2>&1");
 				$end = microtime(true);
 			}
             break;

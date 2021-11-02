@@ -124,13 +124,13 @@
 		}
 		function show_result(name){
 			const obj = document.getElementById(name);
-			obj.innerHTML = "<div>소요시간: "+result.runtime+"s</div>"+result.result;
+			obj.innerHTML = "<div>소요시간: "+result.runtime+"s</div>"+"<pre style='border:none; padding:0; font-family: sans-serif;'>"+result.result+"</pre>";
 		}
 		function show_history(name){
 			let value = "";
 			const obj = document.getElementById(name);
 			histories.forEach(function(history){
-				value = value+"<div>소요시간: "+history.runtime+"s</div>"+history.result+"<br><br>";
+				value = value+"<div>소요시간: "+history.runtime+"s</div>"+"<pre style='border:none; padding:0; font-family: sans-serif;'>"+history.result+"</pre><br><br>";
 			})
 			obj.innerHTML=value;
 		}
