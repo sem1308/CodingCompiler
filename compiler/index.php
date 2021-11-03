@@ -66,7 +66,7 @@
 			spellcheck: true,
 			autocorrect: true
 		});
-		editor.setSize(1001, 350);
+		editor.setSize(1001, 400);
 		var result;
 		var histories = [];
 		function categoryChange(){
@@ -124,13 +124,13 @@
 		}
 		function show_result(name){
 			const obj = document.getElementById(name);
-			obj.innerHTML = "<div>소요시간: "+result.runtime+"s</div>"+"<pre style='border:none; padding:0; font-family: sans-serif;'>"+result.result+"</pre>";
+			obj.innerHTML = "<div>소요시간: "+result.runtime+"s</div>"+"<pre class='result_text''>"+result.result+"</pre>";
 		}
 		function show_history(name){
 			let value = "";
 			const obj = document.getElementById(name);
 			histories.forEach(function(history){
-				value = value+"<div>소요시간: "+history.runtime+"s</div>"+"<pre style='border:none; padding:0; font-family: sans-serif;'>"+history.result+"</pre><br><br>";
+				value = value+"<div>소요시간: "+history.runtime+"s</div>"+"<pre class='result_text'>"+history.result+"</pre><br><br>";
 			})
 			obj.innerHTML=value;
 		}

@@ -1,13 +1,24 @@
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .CodeMirror {
 	border: 1px solid #ddd;
 }
-.CodeMirror-scroll {max-height: 300px;}
+
+.CodeMirror-code {
+  font-family: none;
+  font-size: 80%;
+}
 
 #main_block{
 	width: 70%;
 	height: 80%;
 	margin:auto;
-	padding: 100px;
+	padding: 50px;
 }
 #code_block{
 	display: flex;
@@ -15,13 +26,36 @@
 	flex-direction: column;
 }
 
-#language{
-	display: block;
+#dropdown{
+	position: relative;
+}
+#dropdown-content{
+	display: none;
+	position: absolute;                      
+	padding: .2em .5em;
+	min-width: 75px;
 	
 }
 
-#language:hover{
-	background: #F8F8FF;
+#dropdown-language{   
+	display: block;                      
+	padding: .2em .5em;
+	border: 1px solid #999;
+}
+
+#language{
+	display: block;
+	appearance: none;                               
+	padding: .3em 0 .1em .3em;
+	border: 1px solid #aaaaaa;
+	font-size: 13px;
+	background:url('./imgs/images.png') no-repeat 97% 50%/17px auto;
+	background-color: white;
+	appearance: none;
+}
+
+#language:hover,#language:focus{
+	border: 1px solid #777;
 }
 
 .input_box{
@@ -35,7 +69,6 @@
 	height: 264px;
 	padding: 10px;
 	border: none;
-	font-family: sans-serif;
 	font-size: 14px;
 }
 
@@ -59,25 +92,34 @@
 	display: inline-flex;
 }
 
-.code_box{
-	
-}
-
 #result, #history{
 	background: white;
 	width: 345px; 
 	height: 300px; 
 	padding: 15px;
-	font-family: sans-serif;
 	font-size: 13px;
 	border: 1px solid #ddd;
 	overflow: auto
 }
 
+.result_text{
+	border:none; 
+	padding:0;
+	font-weight: 400;
+	font-family: sans-serif;
+}
+
 .label{
 	display: flex;
 	justify-content: center;
+	font-family: 'NanumSquareRound';
+	padding: 3px 0px;
 	width: 100%;
+	border: none;
+}
+
+select, option{
+	font-family: 'NanumSquareRound';	
 }
 
 textarea{
