@@ -66,7 +66,7 @@
 			spellcheck: true,
 			autocorrect: true
 		});
-		editor.setSize(1001, 400);
+		editor.setSize(901, 400);
 		var result;
 		var histories = [];
 		function categoryChange(){
@@ -99,13 +99,12 @@
 					editor.setValue(data);
 					editor.setOption("mode",lan);
 					$('#result').html("");
-					$('#history').html("");
 				}
             });
         }
 		function get_result(){
 			const obj = document.getElementById('result');
-			obj.innerHTML = "<span style = \"font-size: 14px\">roading...</span>";
+			obj.innerHTML = "<img src=\"/compiler/imgs/roading.gif\" width=\"20px\" height=\"20px\">";
 			$.ajax({
                 url: "<?php echo $base_root?>/php/compile.php",
                 type: "GET",
