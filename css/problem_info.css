@@ -1,0 +1,54 @@
+.main_top{
+	margin-top:20px;
+	font-size: 50px;
+	display: flex;
+	justify-content: center;
+}
+
+.main_middle{
+	padding:20px;
+}
+
+.wrapper{
+	width:100%;
+	padding-bottom: 10px;
+}
+
+.title_right{
+	font-size:20px;
+	line-height:85px;
+}
+
+.pro_title{
+	font-size: 25px;
+	margin-bottom: 10px;
+}
+
+.pro_main{
+	margin:0 auto;
+	padding: 0 auto;
+	width: 1000px;
+	height: 800px;
+}
+
+
+.pro_info{
+}
+
+.pro_restrictions{
+	
+}
+
+.pro_info_title{
+	font-size: 17px;
+	margin: 10px 0 10px 0;
+}
+
+.pro_info_case{
+	font-size: 17px;
+	display: inline-flex;
+	direction: row;
+}
+
+.pro_info_contents{
+}

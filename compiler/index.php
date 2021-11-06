@@ -5,8 +5,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>ComPiler</title>
-	<link href="<?php echo $base_root?>/css/compiler.css" rel="stylesheet" type="text/css" />
+    <title>CoCo</title>
+	<link href="css/compiler.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="<?php echo $root?>/lib/codemirror.css">
 	<link rel=stylesheet href="<?php echo $root?>/doc/docs.css">
 	<link rel="stylesheet" href="<?php echo $root?>/addon/hint/show-hint.css">
@@ -25,7 +25,11 @@
     <script src="//code.jquery.com/jquery.min.js"></script>
 </head>
 <body>
-	<div>
+	<div class = "main">
+		<div class = "main_top">
+			<span style="color:gray;">Co</span><span class="title_right">ding</span>.<span style="color:gray;">Co</span><span class="title_right">mpiler</span>
+		</div>
+		<hr>
 		<div id="main_block">
 			<div id = "code_block">
 				<div class = "code_box">
@@ -104,7 +108,7 @@
         }
 		function get_result(){
 			const obj = document.getElementById('result');
-			obj.innerHTML = "<img src=\"/compiler/imgs/roading.gif\" width=\"20px\" height=\"20px\">";
+			obj.innerHTML = "<img src=\"css/imgs/roading.gif\" width=\"20px\" height=\"20px\">";
 			$.ajax({
                 url: "<?php echo $base_root?>/php/compile.php",
                 type: "GET",
