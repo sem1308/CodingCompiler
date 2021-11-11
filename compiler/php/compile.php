@@ -7,6 +7,8 @@
 	$input = $_GET["input"];
 	$file_link = "../files";
 	$user_file_link = "$file_link/$id";
+	$end=0;
+	$start=0;
 	if(!is_dir($user_file_link)){
 		system("mkdir $user_file_link");
 	}
