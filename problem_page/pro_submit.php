@@ -48,16 +48,19 @@
 				<textarea id = "code" autofocus></textarea>
 			</div>
 			<div class = "return_box">
-				<div style="width:30%;">
-					<div class = "label" >Input</div>
-					<textarea id = "input" style="border: 1px solid #ddd; height:332px; width:99%; padding:15px; font-size:13px;"></textarea>
-				</div>
-				<div style="width:30%;">
-					<div class = "label">Result</div>
-					<div id="result" style="width:87%;"></div>
+				<div style="width:60%;">
+					<div style="width:100%; display:inline-flex">
+						<div class = "label" >Input</div>
+						<div class = "label">Result</div>
+					</div>
+					<div style="border: 1px solid #ddd; display:inline-flex; width:100%;">
+						<textarea id = "input" style="border-right: 1px solid #ddd;width:50%; height:230px; padding:15px; font-size:13px; font-family:none;"></textarea>
+						<div id="result" style="width:40%; border:none; height:200px;"></div>
+					</div>				
 				</div>
 				<div class = "middle_right">
-					<button class = "run_button" onclick="get_result()">RUN</button>
+					<button class = "run_button" onclick="get_result()">Run</button>
+					<button class = "run_button" onclick="submit()">Submit</button>
 				</div>
 			</div>
 		</div>
