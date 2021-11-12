@@ -1,0 +1,22 @@
+.pro_main{
+	margin:0 auto;
+	width: 1000px;
+	height: 1000px;
+	font-family:none;
+}
+
+.middle_right{
+	width:40%;
+	padding:30px 0 0 30px;
+	height:auto;
+}
+
+.run_button{
+	margin-bottom: 30px;
+}
+
+.return_box{
+	width:903px;
+	display: inline-flex;
+	float:left;
+}

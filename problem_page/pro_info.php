@@ -1,7 +1,7 @@
 <?php
 	# $number = $_GET["number"];
 	# number를 가지고 database에서 문제 정보를 끌어와야함
-	$number = 2;
+	$number = 1;
 	$conn = new mysqli("localhost","hsh0221","123456","web_proj") or die("실패...");
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
@@ -77,6 +77,7 @@
 		"정답률" => $ans_pro,
 	);
 
+	#상세 정보 출력
 	function show($title,$contents){
 		if(!is_int($title)){
 			$title = "<div class=\"pro_info_title\">$title</div>";
@@ -100,6 +101,7 @@
 		}
 	}
 
+	#기본 정보 출력
 	function show_res_info(){
 		global $restrict_info;
 		$titles = "";
@@ -113,7 +115,6 @@
 		echo "<tr>".$contents."</tr>";
 		echo "</table>";
 	}
-	
 ?>
 
 <html>
@@ -121,6 +122,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>CoCo</title>
 	<link href="../css/problem_info.css" rel="stylesheet" type="text/css" />
+    <script src="//code.jquery.com/jquery.min.js"></script>
 </head>
 <body>
 	<div class="pro_main">
@@ -135,12 +137,20 @@
 			<div class="pro_restrict_info">
 				<?php show_res_info() ?>
 			</div>
-			<div class="pro_info">
-				<?php
-					foreach($problem as $key => $value){
-						show($key,$value);
-					}
-				?>
+			<div class="pro_info_middle">
+				<div class="pro_info">
+					<?php
+						foreach($problem as $key => $value){
+							show($key,$value);
+						}
+					?>
+				</div>
+				<div class="pro_button_block">
+					<a href="./pro_submit.php?number=<?php echo $number?>" class="pro_button">컴파일 & 제출</a>
+					<a class="pro_button">내 제출</a>
+					<a class="pro_button">정답자</a>
+					<a class="pro_button">Q&A</a>
+				</div>
 			</div>
 		</div>
 	</div>
