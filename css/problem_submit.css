@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .pro_main{
 	margin:0 auto;
 	width: 1000px;
@@ -5,18 +12,68 @@
 	font-family:none;
 }
 
+.pro_title{
+	display:block;
+	width:20%;
+	font-size: 30px;
+	margin-bottom: 30px;
+}
+.pro_title:link {color: black; text-decoration: none;}
+.pro_title:visited {color: black; text-decoration: none;}
+
 .middle_right{
 	width:40%;
-	padding:30px 0 0 30px;
+	padding-top:30px;
 	height:auto;
 }
 
-.run_button{
-	margin-bottom: 30px;
+.submit_button{
+	background-color: #46BEFF;
+	border: none;
+	width:100%;
+	padding: 15px;
+	color:white;
+}
+
+.submit_button:hover{
+	background: #32AAFF;
+	cursor:pointer;	
 }
 
 .return_box{
-	width:903px;
+	width:603px;
 	display: inline-flex;
 	float:left;
 }
+
+.submit_box{
+	font-family: 'NanumSquareRound';
+	width:350px;
+	margin-left:30px;
+	margin-top:22px;
+}
+
+.code_submit_block{
+	width:100%;
+	display:inline-flex;
+	justify-content:center;
+}
+
+.submit_res_box{
+	width:100%;
+	border-collapse: collapse;
+}
+
+.submit_table{
+	height: 45px;
+	text-align:center;
+	text-decoration:none;
+	border-bottom: 1px solid #46BEFF;
+    border-left: 1px solid #46BEFF;
+    padding: 10px;
+}
+th:first-child, td:first-child {
+    border-left: none;
+}
+
+
