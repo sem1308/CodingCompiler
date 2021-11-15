@@ -12,6 +12,15 @@
 	font-family:none;
 }
 
+.pro_title{
+	display:block;
+	width:20%;
+	font-size: 30px;
+	margin-bottom: 30px;
+}
+.pro_title:link {color: black; text-decoration: none;}
+.pro_title:visited {color: black; text-decoration: none;}
+
 .middle_right{
 	width:40%;
 	padding-top:30px;
@@ -39,7 +48,7 @@
 
 .submit_box{
 	font-family: 'NanumSquareRound';
-	width:300px;
+	width:350px;
 	margin-left:30px;
 	margin-top:22px;
 }
