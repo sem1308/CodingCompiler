@@ -2,7 +2,6 @@
 	$root="../compiler/codemirror";
 	$base_root="../compiler";
 	$number = $_GET['number'];
-	$number = 1;
 	$conn = new mysqli("localhost","hsh0221","123456","web_proj") or die("실패...");
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
@@ -11,10 +10,12 @@
 	$conn -> query('set session character_set_results=utf8');
 	$conn -> query('set session character_set_client=utf8');
 
-	$sql = "SELECT title FROM problem_info WHERE id = \"$number\""; 
+	$sql = "SELECT title,time_restrict FROM problem_info WHERE id = \"$number\""; 
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
-		$title = mysqli_fetch_row($result)[0];
+		$row = mysqli_fetch_row($result);
+		$title = $row[0];
+		$time_rest = $row[1];
 	} else {
 		die("Database Error: " . $conn->connect_error);
 	}
@@ -75,8 +76,8 @@
 							</div>
 							<div style="border: 1px solid #ddd; display:inline-flex; width:100%;">
 								<div style="width:50%;">
-									<textarea id = "input" style="border-right: 1px solid #ddd; height:200px; width:100%; padding:15px; font-size:13px; font-family:none;"></textarea>
-									<button class = "run_button" onclick="get_result()">실행</button>
+									<textarea id = "input" style="border-right: 1px solid #ddd; height:190px; width:100%; padding:15px; font-size:13px; font-family:none;"></textarea>
+									<button class = "run_button" onclick="get_result()" style="padding:10px;">실행</button>
 								</div>
 								<div id="result" style="width:50%; border:none; height:200px;"></div>
 							</div>				
@@ -88,6 +89,26 @@
 					<table id = "submit_res" class="submit_res_box">
 						<?php echo $submit_table_init?>
 					</table>
+					<div id = "ans_block">
+						<div class = "sub_ans_box">
+							<div class = "show_ans top">
+								<span class = "ans_pro">정답률:</span><span id = "ans_pro" class="ans_pro">-</span>							
+							</div>
+							<div id = "correct">
+								correct
+							</div>
+							<div id = "incorrect">
+								incorrect
+							</div>
+							<div class = "show_ans">
+								<span class = "ans_label">정답</span><span class = "ans_label">전체</span>								
+							</div>
+							<div class = "show_ans">
+								<span id = "y_cnt" class = "ans_label">-</span> / <span id = "w_cnt" class = "ans_label">-</span>
+							</div>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -101,7 +122,7 @@
 		spellcheck: true,
 		autocorrect: true
 	});
-	editor.setSize(601, 400);
+	editor.setSize(651, 408);
 	var result;	
 	let is_made = false;
 	function categoryChange(){
@@ -175,10 +196,11 @@
 	
 	function make_sub_board(len){
 		const obj = document.getElementById('submit_res');
+		let case_num;
 		for(let i=0; i<len; i++){
 			let val = obj.innerHTML;
-			let case_num = i+1;
-			obj.innerHTML = val+"<tr><th class=\"submit_table\" style=\"width:35%;\">"+case_num+"</th><th id=case_"+case_num+" class=\"submit_table\" style=\"width:30%;\"><img src=\"../css/imgs/roading.gif\" width=\"20px\" height=\"20px\"></th><th id=case_time_"+case_num+" class=\"submit_table\">-</th></tr>";
+			case_num = i+1;
+			obj.innerHTML = val+"<tr><td class=\"submit_table\" style=\"width:35%;\">"+case_num+"</td><td id=case_"+case_num+" class=\"submit_table\" style=\"width:30%;\"><img src=\"../css/imgs/roading.gif\" width=\"20px\" height=\"20px\"></td><td id=case_time_"+case_num+" class=\"submit_table\">-</td></tr>";
 		}
 	}
 	
@@ -190,16 +212,23 @@
 			c.innerHTML = "<img src=\"../css/imgs/roading.gif\" width=\"20px\" height=\"20px\">";
 			t.innerHTML = '-';
 		}
+		const a = document.getElementById('ans_pro');
+		a.innerHTML = "-";
+		const y = document.getElementById('y_cnt');
+		y.innerHTML = "-";
 	}
 	
 	function show_sub_res(inputs,outputs){
+		const len = inputs.length;
 		if(!is_made){
-			make_sub_board(inputs.length);
+			make_sub_board(len);
 			is_made = true;
 		}else{
-			change_sub_board(inputs.length);
+			change_sub_board(len);
 		}
-		for(let i=0; i<inputs.length; i++){
+		let ans_cnt=0;
+		let end_cnt=0;
+		for(let i=0; i<len; i++){
 			let case_num = i+1;
 			$.ajax({
 				url: "<?php echo $base_root?>/php/compile.php",
@@ -210,20 +239,51 @@
 					value: editor.getValue(),
 				},
 				success: function(data){
-					result = JSON.parse(data);
+					results = JSON.parse(data);
+					result = results.result;
+					time = results.runtime;
+					if(result[result.length-1] == '\n'){
+						result = result.slice(0,result.length-1);
+					}
 					const t = document.getElementById('case_time_'+case_num);
 					const c = document.getElementById('case_'+case_num);
-					if(outputs[i] == result.result){
-						c.innerHTML = '<span style="color: blue; ">O</span>';
+					const time_rest = <?php echo $time_rest?>;
+					end_cnt += 1;
+					if(time > time_rest){
+						c.innerHTML = '<span style="color:#9400D3;">시간초과</span>';
 					}else{
-						c.innerHTML = '<span style="color:red;">X</span>';
+						if(outputs[i] == result){
+							ans_cnt += 1;
+							c.innerHTML = '<span style="color: blue; ">O</span>';	
+						}else{
+							c.innerHTML = '<span style="color:red;">X</span>';
+						}
 					}
-					t.innerHTML = result.runtime;					
+					t.innerHTML = time+'s';
+					if(end_cnt == len){
+						const b = document.getElementById('ans_block');
+						b.setAttribute('style', 'display:block');
+						let res = ans_cnt/len*100;
+						const a = document.getElementById('ans_pro');
+						a.innerHTML = res.toFixed(1)+"%";
+						const y = document.getElementById('y_cnt');
+						y.innerHTML = ans_cnt;
+						const w = document.getElementById('w_cnt');
+						w.innerHTML = len;
+						const cor = document.getElementById('correct');
+						const incor = document.getElementById('incorrect');
+						if(ans_cnt == len){
+							cor.setAttribute('style', 'display:block');
+							incor.setAttribute('style', 'display:none');
+						}else{
+							cor.setAttribute('style', 'display:none');
+							incor.setAttribute('style', 'display:block');
+						}
+					}
 				}
 			});
 		}
 	}
-		
 	categoryChange();
 </script>	
 </html>

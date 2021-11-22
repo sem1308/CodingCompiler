@@ -71,7 +71,7 @@
 
 	#제한 및 정보 저장
 	$restrict_info = array(
-		"시간 제한" => $time_restrict,
+		"시간 제한" => $time_restrict."s",
 		"제출" => $submits,
 		"맞은 사람" => $ans_people,
 		"정답률" => $ans_pro,
