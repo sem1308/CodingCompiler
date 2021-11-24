@@ -47,6 +47,7 @@
 				<div class = "return">
 					<div class = "result_box">
 						<div class = "label">Result</div>
+						<img id="roading_img" class="init_img" src="css/imgs/roading.gif" width="20px" height="20px">
 						<div id="result"></div>
 					</div>
 					<div class = "input_box">
@@ -106,9 +107,12 @@
 				}
             });
         }
+		
 		function get_result(){
-			const obj = document.getElementById('result');
-			obj.innerHTML = "<img src=\"css/imgs/roading.gif\" width=\"20px\" height=\"20px\">";
+			const res = document.getElementById('result');
+			res.innerHTML="";
+			const obj = document.getElementById('roading_img');
+			obj.setAttribute('class','roading_img');
 			$.ajax({
                 url: "<?php echo $base_root?>/php/compile.php",
                 type: "GET",
@@ -118,6 +122,7 @@
 					value: editor.getValue(),
                 },
 				success: function(data){
+					obj.setAttribute('class','init_img');
 					result = JSON.parse(data);
 					show_result('result');
 					histories.unshift(result);
