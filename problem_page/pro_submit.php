@@ -128,7 +128,7 @@
 	let inputs;
 	let outputs;
 	let len;
-	let board="<tbody id = \"made_board\" style=\"display:none;\">";
+	let board="<tbody id = \"made_board\">";
 	function categoryChange(){
 		let default_code;
 		let lan = $('#language').val();
@@ -225,7 +225,7 @@
 		let case_num;
 		for(let i=0; i<len; i++){
 			case_num = i+1;
-			board = board+"<tr><td class=\"submit_table\" style=\"width:35%;\">"+case_num+"</td><td id=case_"+case_num+" class=\"submit_table\" style=\"width:30%;\"><img src=\"../css/imgs/roading.gif\" width=\"20px\" height=\"20px\"></td><td id=case_time_"+case_num+" class=\"submit_table\">-</td></tr>";
+			board = board+"<tr><td class=\"submit_table\" style=\"width:35%;\">"+case_num+"</td><td class=\"submit_table\" style=\"width:30%;\"><img id='roading_img_"+case_num+"' src=\"../css/imgs/roading.gif\" width=\"20px\" height=\"20px\"><span id=case_"+case_num+"></span></td><td id=case_time_"+case_num+" class=\"submit_table\">-</td></tr>";
 		}
 		board = board+"</tbody>";
 		obj.innerHTML = obj.innerHTML+board;
@@ -234,10 +234,12 @@
 	function change_sub_board(){
 		for(let i=0; i<len; i++){
 			let case_num = i+1;
-			const c = document.getElementById('case_'+case_num);
+			const img = document.getElementById('roading_img_'+case_num);
 			const t = document.getElementById('case_time_'+case_num);
-			c.innerHTML = "<img src=\"../css/imgs/roading.gif\" width=\"20px\" height=\"20px\">";
+			const c = document.getElementById('case_'+case_num);
+			img.setAttribute('style','display:block; margin-left:21px;');
 			t.innerHTML = '-';
+			c.innerHTML = null;
 		}
 		const a = document.getElementById('ans_pro');
 		a.innerHTML = "-";
@@ -274,6 +276,8 @@
 						if(result[result.length-1] == '\n'){
 							result = result.slice(0,result.length-1);
 						}
+						const img = document.getElementById('roading_img_'+case_num);
+						img.setAttribute('style','display:none');
 						const t = document.getElementById('case_time_'+case_num);
 						const c = document.getElementById('case_'+case_num);
 						const time_rest = <?php echo $time_rest?>;

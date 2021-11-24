@@ -140,6 +140,12 @@
 	height:0;
 }
 
+#made_board{
+	display:none;;
+	animation:fadein;
+	animation-duration: 1s;
+}
+
 th:first-child, td:first-child {
     border-left: none;
 }

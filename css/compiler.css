@@ -124,6 +124,21 @@
 	overflow: auto
 }
 
+.init_img{
+	display:none;
+}
+
+.roading_img{
+	display:block;
+	position:absolute;
+	left:15px;
+	top:45px;
+}
+
+.result_box{
+	position:relative;
+}
+
 .result_text{
 	border:none; 
 	padding:0;
