@@ -228,6 +228,7 @@
 		}
 		let ans_cnt=0;
 		let end_cnt=0;
+		let is_correct=false;
 		for(let i=0; i<len; i++){
 			let case_num = i+1;
 			$.ajax({
@@ -261,6 +262,7 @@
 					}
 					t.innerHTML = time+'s';
 					if(end_cnt == len){
+						is_correct = true;
 						const b = document.getElementById('ans_block');
 						b.setAttribute('style', 'display:block');
 						let res = ans_cnt/len*100;
@@ -283,6 +285,17 @@
 				}
 			});
 		}
+		$.ajax({
+			url: "./php/submit.php",
+			type: "POST",
+			data: {
+				number: <?php echo $number?>,
+			},
+			success: function(data){
+				let result = JSON.parse(data);
+				show_sub_res(result.inputs,result.outputs);
+			}
+		});
 	}
 	categoryChange();
 </script>	
