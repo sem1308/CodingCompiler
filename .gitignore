@@ -1,4 +1,13 @@
 goorm.manifest
 compiler/files/
 problem_page/php/crowling.php
+<<<<<<< HEAD
+<<<<<<< HEAD
+problem_page.php/crowling_tag.php
+
+=======
 problem_page/php/crowling_tag.php
+>>>>>>> db7f36e5adbab9d69fc38d956d7fc3c02dc94aec
+=======
+problem_page/php/crowling_tag.php
+>>>>>>> b925f3004829ca0de90b38a14246eb4bb59f6036
