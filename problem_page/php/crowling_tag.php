@@ -23,7 +23,7 @@
 	print_r($tags);
 
 	// Initialize Database
-    $connect= new mysqli("localhost", "root", "123456", "web");
+    $connect= new mysqli("localhost", "root", "123456", "web_proj");
 	$connect -> query('set session character_set_connection=utf8');
 	$connect -> query('set session character_set_results=utf8');
 	$connect -> query('set session character_set_client=utf8');
