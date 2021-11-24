@@ -11,7 +11,7 @@
 		</div>
 		<hr>
 		<div class = "main_middle">
-			<a class = "menu" href = "problem_page/pro_info.php">
+			<a class = "menu" href = "problem_page">
 				Problems
 			</a>
 			<a class = "menu" href = "compiler">
