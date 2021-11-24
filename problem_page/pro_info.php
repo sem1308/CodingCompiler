@@ -2,12 +2,18 @@
 	# $number = $_GET["number"];
 	# number를 가지고 database에서 문제 정보를 끌어와야함
 <<<<<<< HEAD
+<<<<<<< HEAD
 	$number = 1;
 	$conn = new mysqli("localhost","root","123456","web") or die("실패...");
 =======
 	$number = 10;
 	$conn = new mysqli("localhost","root","123456","web_proj") or die("실패...");
 >>>>>>> db7f36e5adbab9d69fc38d956d7fc3c02dc94aec
+=======
+	$number = 10;
+	$conn = new mysqli("localhost","root","123456","web_proj") or die("실패...");
+
+>>>>>>> b925f3004829ca0de90b38a14246eb4bb59f6036
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	}
