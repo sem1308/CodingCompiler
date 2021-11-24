@@ -1,7 +1,7 @@
 <?php
 	# $number = $_GET["number"];
 	# number를 가지고 database에서 문제 정보를 끌어와야함
-	$number = 13;
+	$number = 1;
 	$conn = new mysqli("localhost","hsh0221","123456","web_proj") or die("실패...");
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
@@ -52,14 +52,14 @@
 	}
 
 	# 문제 태그 가져오기
-	/*$sql = "SELECT * FROM pro_tag WHERE pro_id = \"$number\""; 
+	$sql = "SELECT * FROM pro_tag WHERE pro_id = \"$number\""; 
 	$result = get_result($sql);
 	$tags = array();
 	foreach($result as $row){
 		$tag_id = $row['tag_id'];
 		$sql = "SELECT * FROM problem_tag WHERE tag_id = \"$tag_id\"";
 		array_push($tags,get_result($sql)[0]['tag']);
-	}*/
+	}
 
 	#문제 기본 내용 저장
 	$problem = array(
@@ -73,14 +73,16 @@
 	$restrict_info = array(
 		"시간 제한" => $time_restrict."s",
 		"제출" => $submits,
-		"맞은 사람" => $ans_people,
+		"정답" => $ans_people,
 		"정답률" => $ans_pro,
 	);
 
 	#상세 정보 출력
 	function show($title,$contents){
 		$is_case = strpos($title, "case");
-		$is_result = ($title=="input" || $title=="output");
+		$is_result = ($title==="input" || $title==="output");
+		$w_case=null;
+		$case=null;
 		if($is_case !== false){
 			$case='case';
 			$title = '#';
@@ -103,9 +105,9 @@
 			}
 		}else{
 			if($is_result !== false){
-				echo "<pre class=\"ex_result\">$contents</pre>";	
+				echo "<pre class=\"ex_result\">$contents</pre>";
 			}else{
-				echo "<div class=\"pro_info_contents\">$contents</div>";			
+				echo "<div class=\"pro_info_contents\">$contents</div>";
 			}
 		}
 		echo "</div>";
@@ -120,8 +122,8 @@
 		$titles = "";
 		$contents = "";
 		foreach($restrict_info as $key => $item){
-			$titles = $titles."<th>".$key."</th>";
-			$contents = $contents."<td>".$item."</td>";
+			$titles = $titles."<th style=\"width:25%;\">".$key."</th>";
+			$contents = $contents."<td style=\"width:25%;\">".$item."</td>";
 		}
 		echo "<table>";
 		echo "<tr>".$titles."</tr>";
