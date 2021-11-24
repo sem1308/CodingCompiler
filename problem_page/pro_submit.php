@@ -20,7 +20,7 @@
 		die("Database Error: " . $conn->connect_error);
 	}
 
-	$submit_table_init = "<tr><th class=\"submit_table\" style=\"width:35%;\">테스트 No.</th><th class=\"submit_table\" style=\"width:30%;\">결과</th><th class=\"submit_table\">소요 시간</th></tr>";
+	$submit_table_init = "<thead><tr><th class=\"submit_table\" style=\"width:35%;\">테스트 No.</th><th class=\"submit_table\" style=\"width:30%;\">결과</th><th class=\"submit_table\">소요 시간</th></tr></thead>";
 ?>
 <html>
 <head>
@@ -125,6 +125,10 @@
 	editor.setSize(651, 408);
 	var result;	
 	let is_made = false;
+	let inputs;
+	let outputs;
+	let len;
+	let board="<tbody id = \"made_board\" style=\"display:none;\">";
 	function categoryChange(){
 		let default_code;
 		let lan = $('#language').val();
@@ -180,114 +184,12 @@
 		obj.innerHTML = "<div>소요시간: "+result.runtime+"s</div>"+"<pre class='result_text''>"+result.result+"</pre>";
 	}
 	
-	function submit(){
-		$.ajax({
-			url: "./php/submit.php",
-			type: "POST",
-			data: {
-				number: <?php echo $number?>,
-			},
-			success: function(data){
-				let result = JSON.parse(data);
-				show_sub_res(result.inputs,result.outputs);
-			}
-		});
-	}
-	
-	function make_sub_board(len){
-		const obj = document.getElementById('submit_res');
-		let case_num;
-		for(let i=0; i<len; i++){
-			let val = obj.innerHTML;
-			case_num = i+1;
-			obj.innerHTML = val+"<tr><td class=\"submit_table\" style=\"width:35%;\">"+case_num+"</td><td id=case_"+case_num+" class=\"submit_table\" style=\"width:30%;\"><img src=\"../css/imgs/roading.gif\" width=\"20px\" height=\"20px\"></td><td id=case_time_"+case_num+" class=\"submit_table\">-</td></tr>";
-		}
-	}
-	
-	function change_sub_board(len){
-		for(let i=0; i<len; i++){
-			let case_num = i+1;
-			const c = document.getElementById('case_'+case_num);
-			const t = document.getElementById('case_time_'+case_num);
-			c.innerHTML = "<img src=\"../css/imgs/roading.gif\" width=\"20px\" height=\"20px\">";
-			t.innerHTML = '-';
-		}
-		const a = document.getElementById('ans_pro');
-		a.innerHTML = "-";
-		const y = document.getElementById('y_cnt');
-		y.innerHTML = "-";
-	}
-	
-	function show_sub_res(inputs,outputs){
-		const len = inputs.length;
-		if(!is_made){
-			make_sub_board(len);
-			is_made = true;
-		}else{
-			change_sub_board(len);
-		}
-		let ans_cnt=0;
-		let end_cnt=0;
-		let is_correct=false;
-		for(let i=0; i<len; i++){
-			let case_num = i+1;
-			$.ajax({
-				url: "<?php echo $base_root?>/php/compile.php",
-				type: "GET",
-				data: {
-					language: $('#language').val(),
-					input: inputs[i],
-					value: editor.getValue(),
-				},
-				success: function(data){
-					results = JSON.parse(data);
-					result = results.result;
-					time = results.runtime;
-					if(result[result.length-1] == '\n'){
-						result = result.slice(0,result.length-1);
-					}
-					const t = document.getElementById('case_time_'+case_num);
-					const c = document.getElementById('case_'+case_num);
-					const time_rest = <?php echo $time_rest?>;
-					end_cnt += 1;
-					if(time > time_rest){
-						c.innerHTML = '<span style="color:#9400D3;">시간초과</span>';
-					}else{
-						if(outputs[i] == result){
-							ans_cnt += 1;
-							c.innerHTML = '<span style="color: blue; ">O</span>';	
-						}else{
-							c.innerHTML = '<span style="color:red;">X</span>';
-						}
-					}
-					t.innerHTML = time+'s';
-					if(end_cnt == len){
-						is_correct = true;
-						const b = document.getElementById('ans_block');
-						b.setAttribute('style', 'display:block');
-						let res = ans_cnt/len*100;
-						const a = document.getElementById('ans_pro');
-						a.innerHTML = res.toFixed(1)+"%";
-						const y = document.getElementById('y_cnt');
-						y.innerHTML = ans_cnt;
-						const w = document.getElementById('w_cnt');
-						w.innerHTML = len;
-						const cor = document.getElementById('correct');
-						const incor = document.getElementById('incorrect');
-						if(ans_cnt == len){
-							cor.setAttribute('style', 'display:block');
-							incor.setAttribute('style', 'display:none');
-						}else{
-							cor.setAttribute('style', 'display:none');
-							incor.setAttribute('style', 'display:block');
-						}
-					}
-				}
-			});
-		}
-	}
-	
-	async function push_result(inputs,outputs){
+	async function submit(){
+		const cor = document.getElementById('correct');
+		const incor = document.getElementById('incorrect');
+		cor.setAttribute('style', 'display:none');
+		incor.setAttribute('style', 'display:none');
+		const is_correct = await show_sub_res();
 		$.ajax({
 			url: "./php/push_result.php",
 			type: "POST",
@@ -301,6 +203,122 @@
 		});
 	}
 	
+	function get_io_data(){
+		$.ajax({
+			url: "./php/submit.php",
+			type: "POST",
+			async: false,
+			data: {
+				number: <?php echo $number?>,
+			},
+			success: function(data){
+				let result = JSON.parse(data);
+				inputs = result.inputs;
+				outputs = result.outputs;
+				len = inputs.length;
+			}
+		});
+	}
+	
+	function make_sub_board(){
+		const obj = document.getElementById('submit_res');
+		let case_num;
+		for(let i=0; i<len; i++){
+			case_num = i+1;
+			board = board+"<tr><td class=\"submit_table\" style=\"width:35%;\">"+case_num+"</td><td id=case_"+case_num+" class=\"submit_table\" style=\"width:30%;\"><img src=\"../css/imgs/roading.gif\" width=\"20px\" height=\"20px\"></td><td id=case_time_"+case_num+" class=\"submit_table\">-</td></tr>";
+		}
+		board = board+"</tbody>";
+		obj.innerHTML = obj.innerHTML+board;
+	}
+	
+	function change_sub_board(){
+		for(let i=0; i<len; i++){
+			let case_num = i+1;
+			const c = document.getElementById('case_'+case_num);
+			const t = document.getElementById('case_time_'+case_num);
+			c.innerHTML = "<img src=\"../css/imgs/roading.gif\" width=\"20px\" height=\"20px\">";
+			t.innerHTML = '-';
+		}
+		const a = document.getElementById('ans_pro');
+		a.innerHTML = "-";
+		const y = document.getElementById('y_cnt');
+		y.innerHTML = "-";
+	}
+	
+	function show_sub_res(){
+		return new Promise((resolve, reject)=>{
+			if(!is_made){
+				const b = document.getElementById("made_board");
+				b.setAttribute('style','display:table-row-group;');
+				is_made = true;
+			}else{
+				change_sub_board();
+			}
+			let ans_cnt=0;
+			let end_cnt=0;
+			let is_correct=0;
+			for(let i=0; i<len; i++){
+				let case_num = i+1;
+				$.ajax({
+					url: "<?php echo $base_root?>/php/compile.php",
+					type: "GET",
+					data: {
+						language: $('#language').val(),
+						input: inputs[i],
+						value: editor.getValue(),
+					},
+					success: function(data){
+						results = JSON.parse(data);
+						result = results.result;
+						time = results.runtime;
+						if(result[result.length-1] == '\n'){
+							result = result.slice(0,result.length-1);
+						}
+						const t = document.getElementById('case_time_'+case_num);
+						const c = document.getElementById('case_'+case_num);
+						const time_rest = <?php echo $time_rest?>;
+						end_cnt += 1;
+						if(time > time_rest){
+							c.innerHTML = '<span style="color:#9400D3;">시간초과</span>';
+						}else{
+							if(outputs[i] == result){
+								ans_cnt += 1;
+								c.innerHTML = '<span style="color: blue; ">O</span>';	
+							}else{
+								c.innerHTML = '<span style="color:red;">X</span>';
+							}
+						}
+						t.innerHTML = time+'s';
+						if(end_cnt == len){
+							const b = document.getElementById('ans_block');
+							b.setAttribute('style', 'display:block');
+							let res = ans_cnt/len*100;
+							const a = document.getElementById('ans_pro');
+							a.innerHTML = res.toFixed(1)+"%";
+							const y = document.getElementById('y_cnt');
+							y.innerHTML = ans_cnt;
+							const w = document.getElementById('w_cnt');
+							w.innerHTML = len;
+							const cor = document.getElementById('correct');
+							const incor = document.getElementById('incorrect');
+							if(ans_cnt == len){
+								is_correct = 1;
+								cor.setAttribute('style', 'display:block');
+								incor.setAttribute('style', 'display:none');
+							}else{
+								cor.setAttribute('style', 'display:none');
+								incor.setAttribute('style', 'display:block');
+							}
+							resolve(is_correct);
+						}
+					}
+				});
+			}
+		});
+	}
+	
+	get_io_data();
+	make_sub_board();
 	categoryChange();
 </script>	
 </html>

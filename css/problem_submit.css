@@ -15,6 +15,11 @@
   }
 }
 
+.roading_img{
+	width:20px;
+	height:20px;
+}
+
 .pro_main{
 	margin:0 auto;
 	width: 1000px;
@@ -85,7 +90,7 @@
 	width:100%;
 	display:flex;
 	justify-content:center;
-	margin: 10px 0;
+	margin: 30px 0 10px 0;
 }
 
 .top{
@@ -123,6 +128,7 @@
 	display:none;
 	animation:fadein;
 	animation-duration: 1s;
+	height:0;
 }
 
 #incorrect{
@@ -131,6 +137,7 @@
 	display:none;
 	animation:fadein;
 	animation-duration: 1s;
+	height:0;
 }
 
 th:first-child, td:first-child {
