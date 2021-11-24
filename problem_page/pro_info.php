@@ -1,7 +1,6 @@
 <?php
-	# $number = $_GET["number"];
 	# number를 가지고 database에서 문제 정보를 끌어와야함
-	$number = 2;
+	$number = $_GET["number"];
 	$conn = new mysqli("localhost","root","123456","web_proj") or die("실패...");
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
