@@ -23,14 +23,13 @@
 	print_r($tags);
 
 	// Initialize Database
-    $connect= mysqli_connect("localhost", "root", "123456");
+    $connect= new mysqli("localhost", "root", "123456", "web");
 	$connect -> query('set session character_set_connection=utf8');
 	$connect -> query('set session character_set_results=utf8');
 	$connect -> query('set session character_set_client=utf8');
     if($connect-> connect_errno) {
         die("Cannot connect! ". $connect-> connect_error);
     }
-    $db_newsinformation= mysqli_select_db($connect, 'web_proj');
     // For init
     if(!($results=$connect->query("TRUNCATE problem_tag"))) {
         echo"Failed to TRUNCATE TABLE :: problem_tag<br>";
@@ -38,7 +37,7 @@
 	if(!($results=$connect->query("TRUNCATE pro_tag"))) {
         echo"Failed to TRUNCATE TABLE :: pro_tag<br>";
 	}
-	
+
 	for($i=0; $i<count($tags); $i=$i+2){
 		$id = (int)($i/2)+1;
 		$insert_query= "INSERT INTO problem_tag(tag_id, tag) VALUES($id,'$tags[$i]')";
