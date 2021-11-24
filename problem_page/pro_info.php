@@ -29,7 +29,7 @@
 	$title = $result['title'];
 	$submits = $result['submits'];
 	$ans_people = $result['ans_people'];
-	$ans_pro = $result['ans_pro'];
+	$ans_pro = $result['ans_pro']."%";
 	$time_restrict = $result['time_restrict'];
 
 	# 문제 세부사항 가져오기
@@ -37,6 +37,7 @@
 	$result = get_result($sql)[0];
 	$contents = $result['contents'];
 	$restricts = $result['restricts'];
+	$output = $result['output'];
 	
 	# 문제 예제 가져오기
 	$sql = "SELECT * FROM pro_example WHERE pro_id = \"$number\""; 
@@ -64,6 +65,7 @@
 	$problem = array(
 		"문제 내용" => $contents,
 		"제한 사항" => $restricts,
+		"출력 형식" => $output,
 		"예제" => $example,
 		"tag" => $tags,
 	);

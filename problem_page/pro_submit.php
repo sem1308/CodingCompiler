@@ -198,7 +198,6 @@
 				correct: is_correct,
 			},
 			success: function(data){
-				console.log(data);
 			}
 		});
 	}
@@ -271,7 +270,12 @@
 					},
 					success: function(data){
 						results = JSON.parse(data);
-						result = results.result;
+						let result = (results.result).trim();
+						let output = outputs[i].trim();
+						output = output.replace(/\r/g, "");
+						result = result.replace(/\r/g, "");
+						console.log(output);
+						console.log(result);
 						time = results.runtime;
 						if(result[result.length-1] == '\n'){
 							result = result.slice(0,result.length-1);
@@ -285,7 +289,7 @@
 						if(time > time_rest){
 							c.innerHTML = '<span style="color:#9400D3;">시간초과</span>';
 						}else{
-							if(outputs[i] == result){
+							if((output == result) || (parseFloat(output) == parseFloat(result))){
 								ans_cnt += 1;
 								c.innerHTML = '<span style="color: blue; ">O</span>';	
 							}else{

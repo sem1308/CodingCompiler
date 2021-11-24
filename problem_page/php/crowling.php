@@ -40,12 +40,14 @@
 		$problem_desc= $finder->query("//*[contains(@id, '$classname_problem_desc')]"); 
 		$problem_input= $finder->query("//*[contains(@id, '$classname_problem_input')]"); 
 		$problem_ex= $finder->query("//*[contains(@class, '$classname_problem_ex')]"); 
+		$problem_output= $finder->query("//*[contains(@id, 'problem_output')]"); 
 		
         $problem_ids= iterator_to_array($problem_ids);
 		$problem_title= iterator_to_array($problem_title);
 		$problem_desc= iterator_to_array($problem_desc);
 		$problem_input= iterator_to_array($problem_input);
 		$problem_ex= iterator_to_array($problem_ex);
+		$problem_output= iterator_to_array($problem_output);
 		
 		$returnValue = array();
 		$returnEx = array();
@@ -55,6 +57,7 @@
         }
 		array_push($returnValue,$problem_desc[0]->nodeValue);
 		array_push($returnValue,$problem_input[0]->nodeValue);
+		array_push($returnValue,$problem_output[0]->nodeValue);
 		foreach($problem_ex as $eachItem) {
             array_push($returnEx, $eachItem->nodeValue);
         }
@@ -74,7 +77,7 @@
     if($connect-> connect_errno) {
         die("Cannot connect! ". $connect-> connect_error);
     }
-    $db_newsinformation= mysqli_select_db($connect, 'web');
+    $db_newsinformation= mysqli_select_db($connect, 'web_proj');
     // For init
     if(!($results=$connect->query("TRUNCATE problem_info"))) {
         echo"Failed to TRUNCATE TABLE :: problem_info<br>";
@@ -104,7 +107,8 @@
 		}
 		$content = str_replace('"','\"',$result[7]);	
 		$restrict = str_replace('"','\"',$result[8]);
-		$insert_query= "INSERT INTO problem_detail(contents,restricts) VALUES(\"$content\",\"$restrict\")";
+		$output = str_replace('"','\"',$result[9]);
+		$insert_query= "INSERT INTO problem_detail(contents,restricts,output) VALUES(\"$content\",\"$restrict\",\"$output\")";
 		if($connect->query($insert_query) === TRUE) {
 			// echo "New record created successfully";
 		}else{
