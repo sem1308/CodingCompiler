@@ -67,14 +67,14 @@
 	//$example = $result['example'];
 
 	// Initialize Database
-    $connect= mysqli_connect("localhost", "root", "123456");
+    $connect= mysqli_connect("localhost", "root", "");
 	$connect -> query('set session character_set_connection=utf8');
 	$connect -> query('set session character_set_results=utf8');
 	$connect -> query('set session character_set_client=utf8');
     if($connect-> connect_errno) {
         die("Cannot connect! ". $connect-> connect_error);
     }
-    $db_newsinformation= mysqli_select_db($connect, 'web_proj');
+    $db_newsinformation= mysqli_select_db($connect, 'web');
     // For init
     if(!($results=$connect->query("TRUNCATE problem_info"))) {
         echo"Failed to TRUNCATE TABLE :: problem_info<br>";
