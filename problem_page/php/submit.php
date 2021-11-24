@@ -34,7 +34,6 @@
 		}
 		closedir($handle);
 	}
-
 	$results['inputs'] = $inputs;
 	$results['outputs'] = $outputs;
 	echo json_encode($results);	

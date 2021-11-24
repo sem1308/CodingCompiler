@@ -41,7 +41,9 @@
 			$end = microtime(true);
             break;
 		case "py":
+			$start = microtime(true);
 			$result = shell_exec("cat ./$user_file_link/input.txt |python3 $user_file_link/$file_name.py 2>&1");
+			$end = microtime(true);
 			break;
 		default:
 			$compile_type;
