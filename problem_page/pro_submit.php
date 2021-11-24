@@ -2,7 +2,7 @@
 	$root="../compiler/codemirror";
 	$base_root="../compiler";
 	$number = $_GET['number'];
-	$conn = new mysqli("localhost","hsh0221","123456","web_proj") or die("실패...");
+	$conn = new mysqli("localhost","root","123456","web_proj") or die("실패...");
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	}
@@ -285,18 +285,22 @@
 				}
 			});
 		}
+	}
+	
+	async function push_result(inputs,outputs){
 		$.ajax({
-			url: "./php/submit.php",
+			url: "./php/push_result.php",
 			type: "POST",
 			data: {
-				number: <?php echo $number?>,
+				id: <?php echo $number?>,
+				correct: is_correct,
 			},
 			success: function(data){
-				let result = JSON.parse(data);
-				show_sub_res(result.inputs,result.outputs);
+				console.log(data);
 			}
 		});
 	}
+	
 	categoryChange();
 </script>	
 </html>
