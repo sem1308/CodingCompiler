@@ -5,9 +5,33 @@
     font-style: normal;
 }
 
+@keyframes fadein {
+  from {
+    opacity:0;
+  }
+
+  to {
+    opacity:1;
+  }
+}
+
+.header{
+    max-width: 100%;
+    background: #fff;
+    box-shadow: 0 2px 8px 0px #f0f1f2;
+	height:80px;
+}
+
+.main{
+	display:inline-flex;
+	justify-content:center;
+	width:100%;
+	height:auto;
+}
+
 .main_top{
-	margin-top:20px;
-	font-size: 50px;
+	font-size: 45px;
+	line-height:75px;
 	display: flex;
 	justify-content: center;
 }
@@ -30,14 +54,14 @@
 }
 
 .pro_title{
-	font-size: 30px;
+	font-size: 35px;
+	margin-top: 50px;
 	margin-bottom: 10px;
 }
 
 .pro_main{
 	margin:0 auto;
-	width: 1000px;
-	height: 1000px;
+	width: 75%;
 }
 
 
@@ -47,20 +71,23 @@
 }
 
 .pro_button_block{
-	margin-top: 35px;
-	width:25%;
+	margin-top: 2px;
+	width:15%;
+    box-shadow: 0 2px 8px 0px #f0f1f2;
 }
 
 .pro_button{
 	font-family: 'NanumSquareRound';
 	border:none;
 	width:95%;
-	display: block;
-	padding: 15px 0;
+	display:flex;
+	align-items:center;
+	padding: 22px 0;
 	padding-left:15px;
-	font-size: 15px;
+	font-size: 18px;
 	background:#46BEFF;
 	text-align:left;
+	height:25px;
 	color: white;
 }
 
@@ -73,7 +100,7 @@
 }
 
 .pro_info{
-	width:75%;
+	width:100%;
 	padding-right:50px;
 	font-family: 'NanumSquareRound';
 }
@@ -83,7 +110,7 @@
 }
 
 .pro_info_title{
-	font-size: 22px;
+	font-size: 25px;
 	margin: 20px 0 20px 0;
 }
 
@@ -105,7 +132,26 @@
 	background-color: #3CAEFF;
 }
 
+.case:active{
+	transition-duration: 0s;
+	background-color: #28A0FF;
+}
+
+.case_label{
+	display:none;
+	position: absolute;
+	text-align:center;
+	margin-top:5px;
+	color:#6ED746;
+	font-size:12px;
+	top: 36px;
+	left: -70px;
+	animation:fadein;
+	animation-duration:1s;
+}
+
 .wrap{
+	width: 25%;
 }
 
 .wrap:first-child{
@@ -113,17 +159,17 @@
 }
 
 .result{
-	font-size: 17px;
+	font-size:20px;
 	margin:5px 0;
 }
 
 .ex_result{
-	font-size: 15px;
+	font-size: 18px;
 	font-family:sans-serif;
 }
 
 .pro_info_case{
-	font-size: 17px;
+	font-size:20px;
 	display: inline-flex;
 	direction: row;
 	width:100%;
@@ -134,6 +180,7 @@
 	color: rgba(0,0,0, 0.7);
 	letter-spacing:1px;
 	line-height: 1.8;
+	font-size:20px;
 }
 
 a:link {color: black; text-decoration: none;}

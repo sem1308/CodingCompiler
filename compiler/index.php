@@ -27,7 +27,7 @@
 <body>
 	<div class = "main">
 		<a class = "main_top" href="/">
-			<span style="color:gray;">Co</span><span class="title_right">ding</span><sapn style="color:black;">.</sapn><span style="color:gray;">Co</span><span class="title_right">mpiler</span>
+			<span style="color:gray;">Co</span><span class="title_right">ding</span><span style="color:black;">.</span><span style="color:gray;">Co</span><span class="title_right">mpiler</span>
 		</a>
 		<hr>
 		<div id="main_block">

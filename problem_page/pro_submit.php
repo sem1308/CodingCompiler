@@ -10,24 +10,46 @@
 	$conn -> query('set session character_set_results=utf8');
 	$conn -> query('set session character_set_client=utf8');
 
+	function get_result($sql){
+		global $conn;
+		$result = $conn->query($sql);
+		if ($result->num_rows > 0) {
+			$return = array();
+			while($row = mysqli_fetch_assoc($result)) {
+			  array_push($return,$row);
+			}
+			return $return;
+		} else {
+			die("Database Error: " . $conn->connect_error);
+		}
+	}
+	
+	# 문제 제목 및 시간제한 가져오기
 	$sql = "SELECT title,time_restrict FROM problem_info WHERE id = \"$number\""; 
-	$result = $conn->query($sql);
-	if ($result->num_rows > 0) {
-		$row = mysqli_fetch_row($result);
-		$title = $row[0];
-		$time_rest = $row[1];
-	} else {
-		die("Database Error: " . $conn->connect_error);
+	$result = get_result($sql)[0];
+	$title = $result['title'];
+	$time_rest = $result['time_restrict'];
+
+	# 문제 예제 가져오기
+	$sql = "SELECT * FROM pro_example WHERE pro_id = \"$number\""; 
+	$result = get_result($sql);
+	$example = array();
+	$idx = 1;
+	foreach($result as $row){
+		$ex_id = $row['ex_id'];
+		$sql = "SELECT * FROM problem_example WHERE ex_id = \"$ex_id\"";
+		$example[$idx] = array_slice(get_result($sql)[0],1,2);
+		$idx++;
 	}
 
 	$submit_table_init = "<thead><tr><th class=\"submit_table\" style=\"width:35%;\">테스트 No.</th><th class=\"submit_table\" style=\"width:30%;\">결과</th><th class=\"submit_table\">소요 시간</th></tr></thead>";
+	
 ?>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>CoCo</title>
 	<link href="../css/problem_submit.css" rel="stylesheet" type="text/css" />
-	<link href="../css/compiler.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="<?php echo $root?>/lib/codemirror.css">
 	<link rel=stylesheet href="<?php echo $root?>/doc/docs.css">
 	<link rel="stylesheet" href="<?php echo $root?>/addon/hint/show-hint.css">
@@ -46,15 +68,20 @@
     <script src="//code.jquery.com/jquery.min.js"></script>
 </head>
 <body style="background:white;">
-	<div class="pro_main">
+	<div class="header">
 		<a class = "main_top" href = "/">
 			<span style="color:gray;">Co</span><span class="title_right">ding</span><span style="color:black;">.</span><span style="color:gray;">Co</span><span class="title_right">mpiler</span>
 		</a>
-		<hr>
-		<div style="padding:20px; padding-top:18px">
-			<a href="./pro_info.php?number=<?php echo $number?>" class = "pro_title">
-				<?php echo $title?>
-			</a>
+	</div>
+	<div class ="main">
+		<div class="pro_button_block">
+			<a href="./" class="pro_button">문제 목록</a>
+			<a href="./pro_info.php?number=<?php echo $number?>" class = "pro_button">문제로 돌아가기 (<?php echo $title?>)</a>
+			<a class="pro_button">내 제출</a>
+			<a class="pro_button">정답자</a>
+			<a class="pro_button">Q&A</a>
+		</div>
+		<div class="pro_main">
 			<div class = "code_submit_block">
 				<div id = "code_block">
 					<div class = "code_box">
@@ -68,20 +95,16 @@
 						</select>
 						<textarea id = "code" autofocus></textarea>
 					</div>
-					<div class = "return_box">
+				</div>
+				<div class = "return_box">
+					<div style="width:100%;">
 						<div style="width:100%;">
-							<div style="width:100%; display:inline-flex">
-								<div class = "label" >입력</div>
-								<div class = "label">출력</div>
-							</div>
-							<div style="border: 1px solid #ddd; display:inline-flex; width:100%;">
-								<div style="width:50%;">
-									<textarea id = "input" style="border-right: 1px solid #ddd; height:190px; width:100%; padding:15px; font-size:13px; font-family:none;"></textarea>
-									<button class = "run_button" onclick="get_result()" style="padding:10px;">실행</button>
-								</div>
-								<div id="result" style="width:50%; border:none; height:200px;"></div>
-							</div>				
-						</div>
+							<div class = "label" >입력</div>
+							<textarea id = "input"></textarea>
+							<div class = "arrow_img"><button class = "run_button" onclick="get_result()">run</button></div>
+							<div class = "label">출력</div>
+							<div id="result"></div>
+						</div>			
 					</div>
 				</div>
 				<div class = "submit_box">
@@ -108,8 +131,10 @@
 							</div>
 						</div>
 					</div>
-					
 				</div>
+			</div>
+			<div class = "case_block">
+
 			</div>
 		</div>
 	</div>
@@ -122,7 +147,7 @@
 		spellcheck: true,
 		autocorrect: true
 	});
-	editor.setSize(651, 408);
+	editor.setSize('100%', 600);
 	var result;	
 	let is_made = false;
 	let inputs;
