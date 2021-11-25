@@ -64,7 +64,7 @@
 	#문제 기본 내용 저장
 	$problem = array(
 		"문제 내용" => $contents,
-		"제한 사항" => $restricts,
+		"입력 형식" => $restricts,
 		"출력 형식" => $output,
 		"예제" => $example,
 		"tag" => $tags,
@@ -80,19 +80,23 @@
 
 	#상세 정보 출력
 	function show($title,$contents){
+		static $case_cnt=1;
 		$is_case = strpos($title, "case");
-		$is_result = ($title==="input" || $title==="output");
+		$is_input = ($title==="input");
+		$is_output = ($title==="output");
 		$w_case=null;
 		$case=null;
-		if($is_case !== false){
-			$case='case';
-			$title = '#';
-		}else if($is_result !== false){
-			$case='result';
-			$w_case = "wrap";
-		}
+		static $case_idx=0;
 		if(!is_int($title)){
-			$title = "<div class=\"pro_info_title $case\">$title</div>";
+			if($is_case !== false){
+				$case_idx++;
+				$title = "<span id = ".$case_idx." class=\"case_label\"></span><div class=\"pro_info_title case\" onMouseOver=\"show_copy_msg(".$case_idx.")\" onMouseLeave=\"init_copy_msg(".$case_idx.")\" onclick= \"copy(".$case_idx.")\">#</div>";
+			}else if($is_input !== false || $is_output !== false){
+				$title = "<div class=\"pro_info_title result\">$title</div>";
+				$w_case = "wrap";
+			}else{
+				$title = "<div class=\"pro_info_title\">$title</div>";			
+			}
 		}else{
 			$title = null;
 		}
@@ -105,8 +109,10 @@
 				show($key,$value);
 			}
 		}else{
-			if($is_result !== false){
-				echo "<pre class=\"ex_result\">$contents</pre>";
+			if($is_input !== false){
+				echo "<pre id=input_".$case_idx." class=\"ex_result\">$contents</pre>";
+			}else if($is_output !== false){
+				echo "<pre class=\"ex_result\">$contents</pre>";				
 			}else{
 				echo "<div class=\"pro_info_contents\">$contents</div>";
 			}
@@ -141,37 +147,65 @@
     <script src="//code.jquery.com/jquery.min.js"></script>
 </head>
 <body>
-	<div class="pro_main">
+	<div class="header">
 		<a class = "main_top" href = "/">
 			<span style="color:gray;">Co</span><span class="title_right">ding</span>.<span style="color:gray;">Co</span><span class="title_right">mpiler</span>
 		</a>
-		<hr>
-		<div class = "main_middle">
-			<div class = "pro_title">
-				<?php echo $title?>
-			</div>
-			<div class="pro_restrict_info">
-				<?php show_res_info() ?>
-			</div>
-			<div class="pro_info_middle">
-				<div class="pro_info">
-					<?php
-						foreach($problem as $key => $value){
-							show($key,$value);
-						}
-					?>
+	</div>
+	<div class="main">
+		<div class="pro_button_block">
+			<a href="./" class="pro_button">문제 목록</a>
+			<a href="./pro_submit.php?number=<?php echo $number?>" class="pro_button">컴파일 & 제출</a>
+			<a class="pro_button">내 제출</a>
+			<a class="pro_button">정답자</a>
+			<a class="pro_button">Q&A</a>
+		</div>
+		<div class="pro_main">
+			<div class = "main_middle">
+				<div class = "pro_title">
+					<?php echo $title?>
 				</div>
-				<div class="pro_button_block">
-					<a href="./pro_submit.php?number=<?php echo $number?>" class="pro_button">컴파일 & 제출</a>
-					<a class="pro_button">내 제출</a>
-					<a class="pro_button">정답자</a>
-					<a class="pro_button">Q&A</a>
+				<div class="pro_restrict_info">
+					<?php show_res_info() ?>
+				</div>
+				<div class="pro_info_middle">
+					<div class="pro_info">
+						<?php
+							foreach($problem as $key => $value){
+								show($key,$value);
+							}
+						?>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
 </html>
+<script>
+	function copy(num) {
+		var copyText = document.getElementById("input_"+num).innerText;
+		const textArea = document.createElement('textarea');
+		document.body.appendChild(textArea);
+		textArea.value = copyText;
+		textArea.select();
+		document.execCommand('copy');
+		document.body.removeChild(textArea);
+		
+		const msg = document.getElementById(num)
+		msg.innerText="복사 완료";
+		msg.setAttribute("style","display:block;");
+	}
+	function show_copy_msg(num) {
+		const msg = document.getElementById(num)
+		msg.innerText="입력 복사";
+		msg.setAttribute("style","display:block;");
+	}
+	function init_copy_msg(num) {
+		const msg = document.getElementById(num)
+		msg.setAttribute("style","display:none");
+	}
+</script>
 
 <?php
 	$conn->close();

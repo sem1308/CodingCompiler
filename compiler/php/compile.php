@@ -7,15 +7,16 @@
 	$input = $_GET["input"];
 	$file_link = "../files";
 	$user_file_link = "$file_link/$id";
+	if(!is_dir($user_file_link)){
+		system("mkdir $user_file_link");
+	}
 	$cat = "cat ./$user_file_link/input.txt |";
 	$input_file = fopen("$user_file_link/input.txt","w") or die("Unable to open file!");
 	fwrite($input_file,$input);
 	fclose($input_file);
 	$end=0;
 	$start=0;
-	if(!is_dir($user_file_link)){
-		system("mkdir $user_file_link");
-	}
+	
     $test_file = fopen("$user_file_link/$file_name.$langauge","w") or die("Unable to open file!");
     fwrite($test_file,$value);
     fclose($test_file);
