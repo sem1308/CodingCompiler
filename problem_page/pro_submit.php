@@ -101,7 +101,7 @@
 						<div style="width:100%;">
 							<div class = "label" >입력</div>
 							<textarea id = "input"></textarea>
-							<div class = "arrow_img"><button class = "run_button" onclick="get_result()">run</button></div>
+							<div class = "arrow_img"><img src="../css/imgs/start.png" class = "run_button" onclick="get_result()"></div>
 							<div class = "label">출력</div>
 							<div id="result"></div>
 						</div>			

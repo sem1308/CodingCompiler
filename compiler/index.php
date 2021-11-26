@@ -25,11 +25,12 @@
     <script src="//code.jquery.com/jquery.min.js"></script>
 </head>
 <body>
-	<div class = "main">
-		<a class = "main_top" href="/">
+	<div class="header">
+		<a class = "main_top" href = "/">
 			<span style="color:gray;">Co</span><span class="title_right">ding</span><span style="color:black;">.</span><span style="color:gray;">Co</span><span class="title_right">mpiler</span>
 		</a>
-		<hr>
+	</div>
+	<div class = "main">
 		<div id="main_block">
 			<div id = "code_block">
 				<div class = "code_box">

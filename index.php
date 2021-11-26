@@ -5,11 +5,12 @@
 	<link href="css/main.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-	<div class = "main">
-		<div class = "main_top">
+	<div class="header">
+		<a class = "main_top" href = "/">
 			<span style="color:gray;">Co</span><span class="title_right">ding</span>.<span style="color:gray;">Co</span><span class="title_right">mpiler</span>
-		</div>
-		<hr>
+		</a>
+	</div>
+	<div class = "main">
 		<div class = "main_middle">
 			<a class = "menu" href = "problem_page">
 				Problems
