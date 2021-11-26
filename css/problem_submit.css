@@ -117,6 +117,7 @@
 
 .submit_button{
 	font-size:18px;
+	font-family: 'NanumSquareRound';
 	background-color: #46BEFF;
 	border: none;
 	width:100%;
@@ -202,6 +203,7 @@
 }
 
 .label{
+	font-size:17px;
 	display: flex;
 	justify-content: center;
 	font-family: 'NanumSquareRound';
@@ -210,21 +212,26 @@
 	border: none;
 }
 
+.result_text{
+	border:none; 
+	padding:0;
+	font-weight: 400;
+	font-family: sans-serif;
+}
+
 .run_button{
-	border-radius:50%;
-	font-size: 20px;
-	padding:10px;
 	color:white;
-	background-color:#2CE0BC;
+	width:30px;
+	height:30px;
 	border: none;
 }
 
 .run_button:hover{
-	background-color: #46BD7B;
+	filter: opacity(0.7) drop-shadow(0 0 0 #006400);
 }
 
 .run_button:active{
-	background-color: #828282;
+	filter: opacity(0.7) drop-shadow(0 0 0 #828282);
 }
 
 .arrow_img{
@@ -242,7 +249,7 @@
 	height:250px; 
 	width:100%; 
 	padding:15px; 
-	font-size:13px; 
+	font-size:15px; 
 	font-family:none;
 	border-right: 1px solid #ddd;
 }
@@ -255,7 +262,7 @@
 	background: white;
 	height:auto;
 	padding: 15px;
-	font-size: 13px;
+	font-size: 15px;
 	border-right: 1px solid #ddd;
 	overflow: auto
 }
