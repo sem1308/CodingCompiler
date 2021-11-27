@@ -41,8 +41,19 @@
 		$example[$idx] = array_slice(get_result($sql)[0],1,2);
 		$idx++;
 	}
+	$ex_cnt = count($example);
 
 	$submit_table_init = "<thead><tr><th class=\"submit_table\" style=\"width:35%;\">테스트 No.</th><th class=\"submit_table\" style=\"width:30%;\">결과</th><th class=\"submit_table\">소요 시간</th></tr></thead>";
+
+	function show_case($num){
+		global $example;
+		$ex = $example[$num];
+		echo "<div class=\"pro_info_title\"><span id = ".$num." class=\"case_label\"></span><div class=\"pro_info_title case\" onMouseOver=\"show_copy_msg(".$num.")\" onMouseLeave=\"init_copy_msg(".$case_idx.")\" onclick= \"copy(".$num.")\">#</div></div>";
+		$input = $ex['input'];
+		$output = $ex['output'];
+		echo "<div class = 'pro_info_case'><div class = 'wrap'><div class='result'>input</div><pre id=input_".$case_idx." class=\"ex_result\">$input</pre></div>";
+		echo "<div class = 'wrap'><div class='result'>output</div><pre class=\"ex_result\">$output</pre></div></div>";
+	}
 	
 ?>
 <html>
@@ -93,48 +104,59 @@
 							<option value="py">Python</option>
 							<option value="php">PHP</option>
 						</select>
-						<textarea id = "code" autofocus></textarea>
-					</div>
-				</div>
-				<div class = "return_box">
-					<div style="width:100%;">
-						<div style="width:100%;">
-							<div class = "label" >입력</div>
-							<textarea id = "input"></textarea>
-							<div class = "arrow_img"><img src="../css/imgs/start.png" class = "run_button" onclick="get_result()"></div>
-							<div class = "label">출력</div>
-							<div id="result"></div>
-						</div>			
-					</div>
-				</div>
-				<div class = "submit_box">
-					<button class = "submit_button" onclick="submit()">제출</button>
-					<table id = "submit_res" class="submit_res_box">
-						<?php echo $submit_table_init?>
-					</table>
-					<div id = "ans_block">
-						<div class = "sub_ans_box">
-							<div class = "show_ans top">
-								<span class = "ans_pro">정답률:</span><span id = "ans_pro" class="ans_pro">-</span>							
-							</div>
-							<div id = "correct">
-								correct
-							</div>
-							<div id = "incorrect">
-								incorrect
-							</div>
-							<div class = "show_ans">
-								<span class = "ans_label">정답</span><span class = "ans_label">전체</span>								
-							</div>
-							<div class = "show_ans">
-								<span id = "y_cnt" class = "ans_label">-</span> / <span id = "w_cnt" class = "ans_label">-</span>
+						<div class = "code_wrapper">
+							<textarea id = "code" autofocus></textarea>
+							<div class = "return_box">
+								<div style="width:100%;">
+									<div style="width:100%;">
+										<div class = "label" >입력</div>
+										<textarea id = "input"></textarea>
+										<div class = "arrow_img"><img src="../css/imgs/start.png" class = "run_button" onclick="get_result()"></div>
+										<div class = "label">출력</div>
+										<div id="result"></div>
+									</div>			
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<div class = "submit_box">
+					<div class= "submit_wrapper">
+						<button class = "submit_button" onclick="submit()">제출</button>
+						<table id = "submit_res" class="submit_res_box">
+							<?php echo $submit_table_init?>
+						</table>
+						<div id = "ans_block">
+							<div class = "sub_ans_box">
+								<div class = "show_ans top">
+									<span class = "ans_pro">정답률:</span><span id = "ans_pro" class="ans_pro">-</span>							
+								</div>
+								<div id = "correct">
+									correct
+								</div>
+								<div id = "incorrect">
+									incorrect
+								</div>
+								<div class = "show_ans">
+									<span class = "ans_label">정답</span><span class = "ans_label">전체</span>								
+								</div>
+								<div class = "show_ans">
+									<span id = "y_cnt" class = "ans_label">-</span> / <span id = "w_cnt" class = "ans_label">-</span>
+								</div>
+							</div>
+						</div>
+					</div>				
+				</div>
 			</div>
 			<div class = "case_block">
-
+				<ul>
+					<li class = "menu">예제</li>
+					<li class = "case_menu">1</li>
+					<li class = "case_menu">2</li>
+					<li class = "case_menu">3</li>
+					<li class = "case_menu">4</li>
+				</ul>
+				<div></div>
 			</div>
 		</div>
 	</div>
@@ -147,7 +169,7 @@
 		spellcheck: true,
 		autocorrect: true
 	});
-	editor.setSize('100%', 600);
+	editor.setSize('80%', 600);
 	var result;	
 	let is_made = false;
 	let inputs;
@@ -348,6 +370,28 @@
 				});
 			}
 		});
+	}
+	function copy(num) {
+		var copyText = document.getElementById("input_"+num).innerText;
+		const textArea = document.createElement('textarea');
+		document.body.appendChild(textArea);
+		textArea.value = copyText;
+		textArea.select();
+		document.execCommand('copy');
+		document.body.removeChild(textArea);
+		
+		const msg = document.getElementById(num)
+		msg.innerText="복사 완료";
+		msg.setAttribute("style","display:block;");
+	}
+	function show_copy_msg(num) {
+		const msg = document.getElementById(num)
+		msg.innerText="입력 복사";
+		msg.setAttribute("style","display:block;");
+	}
+	function init_copy_msg(num) {
+		const msg = document.getElementById(num)
+		msg.setAttribute("style","display:none");
 	}
 	
 	get_io_data();
