@@ -122,21 +122,6 @@
 			echo "</div>";
 		}
 	}
-
-	#기본 정보 출력
-	function show_res_info(){
-		global $restrict_info;
-		$titles = "";
-		$contents = "";
-		foreach($restrict_info as $key => $item){
-			$titles = $titles."<th style=\"width:25%;\">".$key."</th>";
-			$contents = $contents."<td style=\"width:25%;\">".$item."</td>";
-		}
-		echo "<table>";
-		echo "<tr>".$titles."</tr>";
-		echo "<tr>".$contents."</tr>";
-		echo "</table>";
-	}
 ?>
 
 <html>
@@ -164,9 +149,6 @@
 			<div class = "main_middle">
 				<div class = "pro_title">
 					<?php echo $title?>
-				</div>
-				<div class="pro_restrict_info">
-					<?php show_res_info() ?>
 				</div>
 				<div class="pro_info_middle">
 					<div class="pro_info">
