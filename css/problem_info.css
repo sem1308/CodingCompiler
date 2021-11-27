@@ -18,7 +18,7 @@
 .header{
     max-width: 100%;
     background: #fff;
-    box-shadow: 0 2px 8px 0px #f0f1f2;
+    box-shadow: 0 2px 8px 0px #b4b4b4;
 	height:80px;
 }
 
@@ -44,8 +44,6 @@
 	position:relative;
 	width:100%;
 	padding-bottom: 10px;
-	padding-right: 20px;
-	margin-right: 20px;
 }
 
 .title_right{
@@ -55,8 +53,11 @@
 
 .pro_title{
 	font-size: 35px;
+	font-weight:600;
 	margin-top: 50px;
 	margin-bottom: 10px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #147814;
 }
 
 .pro_main{
@@ -71,31 +72,29 @@
 }
 
 .pro_button_block{
-	margin-top: 2px;
+	height:auto;
 	width:15%;
-    box-shadow: 0 2px 8px 0px #f0f1f2;
+	background: #329632;
+    box-shadow: 2px 2px 8px 0px #8c8c8c;
 }
 
 .pro_button{
 	font-family: 'NanumSquareRound';
 	border:none;
-	width:95%;
 	display:flex;
 	align-items:center;
 	padding: 22px 0;
 	padding-left:15px;
 	font-size: 18px;
-	background:#46BEFF;
 	text-align:left;
-	height:25px;
 	color: white;
+	height:25px;
 }
-
 .pro_button:link {color: white; text-decoration: none;}
 .pro_button:visited {color: white; text-decoration: none;}
 
 .pro_button:hover{
-	background: #32AAFF;
+	background: #0A6E0A;
 	cursor:pointer;
 }
 
@@ -111,30 +110,30 @@
 
 .pro_info_title{
 	font-size: 25px;
-	margin: 20px 0 20px 0;
+	margin: 40px 0 40px 0;
 }
 
 .case{
 	font-size: 15px;
 	position: absolute;
 	text-align:center;
-	background-color: #00C3FF;
+	background-color: #1E821E;
 	padding: 13px 11px;
 	color:white;
 	border-radius: 50%;
 	width:25px;
-	top: -26px;
+	top: -46px;
 	left: -70px;
 }
 
 .case:hover{
-	transition-duration: 0.5s;
-	background-color: #3CAEFF;
+	transition-duration: 0.3s;
+	background-color: #0A6E0A;
 }
 
 .case:active{
 	transition-duration: 0s;
-	background-color: #28A0FF;
+	background-color: #006400;
 }
 
 .case_label{
@@ -152,10 +151,13 @@
 
 .wrap{
 	width: 25%;
+	margin-right:15px;
+	border-bottom:1px solid #288c28;
+	border-right:1px solid #4BAF4B;
 }
 
-.wrap:first-child{
-	border-right:1px solid #46CCFF;
+.wrap:last-child{
+	padding-left: 10px;
 }
 
 .result{
@@ -165,6 +167,8 @@
 
 .ex_result{
 	font-size: 18px;
+	margin:0;
+	margin-top:1em;
 	font-family:sans-serif;
 }
 
@@ -173,7 +177,7 @@
 	display: inline-flex;
 	direction: row;
 	width:100%;
-	margin-bottom:10px;
+	margin-bottom:60px;
 }
 
 .pro_info_contents{

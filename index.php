@@ -13,10 +13,16 @@
 	<div class = "main">
 		<div class = "main_middle">
 			<a class = "menu" href = "problem_page">
-				Problems
+				<div>
+					<img src="problem.png" class = "image"/>				
+				</div>
+				<span class="label" >문제</span>
 			</a>
 			<a class = "menu" href = "compiler">
-				Compiler
+				<div>
+					<img src="compile.png" class = "image"/>				
+				</div>
+				<span class="label" >컴파일러</span>
 			</a>
 		</div>
 	</div>

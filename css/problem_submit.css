@@ -22,10 +22,13 @@
   	font-family: none;
 }
 
+.CodeMirror-Scroll{
+}
+
 .header{
     max-width: 100%;
     background: #fff;
-    box-shadow: 0 2px 8px 0px #f0f1f2;
+    box-shadow: 0 2px 8px 0px #b4b4b4;
 	height:80px;
 	font-family:none;
 }
@@ -59,32 +62,38 @@
 
 
 .case_block{
-	margin-top:20px;
 	position:relative;
+	display:flex;
 	display:inline-flex;
-	width:60%;
+  	list-style-type: none;
+	width:50%;
+	height:100%;
+  	overflow: hidden;
 }
 
 .case_menu,.menu{
-	transition-duration:0.5s;
+	transition-duration:0.3s;
     font-family: 'NanumSquareRound';
-	padding: 5px 8px;
-	color:#46BEFF;
+	font-size:18px;
+	padding: 5px 18px;
+	color:#147814;
+	display:flex;
+	justify-content:center;
+	align-items:center;
 }
 
-.case_menu{
-	border-top: 1px solid #46BEFF;
+.menu{
+	background-color:#4BAF4B;
+	color:white;
 }
 
 .case_menu:hover{
-	background: #46BEFF;
+	background: #4BAF4B;
 	color: white;
 }
 
 .pro_main{
-	margin:0 auto;
-	width: 75%;
-	height:auto;
+	width: 70%;
 }
 
 .pro_title{
@@ -99,21 +108,19 @@
 
 .pro_button_block{
 	height:auto;
-	margin-top: 2px;
 	width:15%;
-    box-shadow: 0 2px 8px 0px #f0f1f2;
+	background: #329632;
+    box-shadow: 2px 2px 8px 0px #8c8c8c;
 }
 
 .pro_button{
 	font-family: 'NanumSquareRound';
 	border:none;
-	width:95%;
 	display:flex;
 	align-items:center;
 	padding: 22px 0;
 	padding-left:15px;
 	font-size: 18px;
-	background:#46BEFF;
 	text-align:left;
 	color: white;
 	height:25px;
@@ -123,7 +130,7 @@
 .pro_button:visited {color: white; text-decoration: none;}
 
 .pro_button:hover{
-	background: #32AAFF;
+	background: #147814;
 	cursor:pointer;
 }
 
@@ -204,54 +211,63 @@
 }
 
 .submit_button{
+	border: none;
 	font-size:18px;
 	font-family: 'NanumSquareRound';
-	background-color: #46BEFF;
-	border: none;
-	width:100%;
+	background-color:  #329632;
+	width:20%;
+	float:right;
 	padding: 15px;
 	color:white;
 }
 
 .submit_button:hover{
-	background: #32AAFF;
+	background: #147814;
 	cursor:pointer;	
+}
+
+.middle_bottom{
+	margin: 0 auto;
+	margin-top:10px;
+	height:5%;
+	width:90%;
+	box-shadow: 0 4px 8px 0px #b4b4b4;
 }
 
 .return_box{
 	width:20%;
 	display: inline-flex;
 	float:left;
-	border-left: 1px solid rgba(220,220,220,0.5);	
+	border-left: 1px solid rgba(220,220,220,1);	
 }
 
 .submit_box{
 	font-family: 'NanumSquareRound';
-	width:25%;
-	margin-left:30px;
-	margin-top:22px;
+	width:15%;
+    box-shadow: 0 2px 8px 0px #b4b4b4;	
+	height:auto;
 }
 
 #code_block{
-	width:75%;
+	width:100%;
 }
 
 .code_submit_block{
-	margin-top:80px;
-	width:100%;
-	display:inline-flex;
+	padding-top:80px;
+	margin:0 auto;
+	height:auto;
+	width:90%;
 }
 
 .code_wrapper{
-	width:100%;
+	width:99.9%;
 	height:auto;
 	display:inline-flex;
 	border: 1px solid #ddd;	
-    box-shadow: 0 2px 8px 0px #f0f1f2;
+    box-shadow: 0 2px 8px 0px #b4b4b4;
 }
 
 .submit_wrapper{
-    box-shadow: 0 2px 8px 0px #f0f1f2;	
 }
 
 .submit_res_box{
@@ -296,8 +312,8 @@
 	height: 45px;
 	text-align:center;
 	text-decoration:none;
-	border-bottom: 1px solid #46BEFF;
-    border-left: 1px solid #46BEFF;
+	border-bottom: 1px solid #288C28;
+    border-left: 1px solid #288C28;
     padding: 10px;
 }
 
@@ -308,7 +324,20 @@
 	font-family: 'NanumSquareRound';
 	padding: 3px 0px;
 	width: 100%;
-	border: none;
+	border-bottom: 1px solid rgba(220,220,220,1);
+}
+
+.label .result{
+	border-top: 1px solid rgba(220,220,220,1);	
+}
+
+.submit_label{
+	font-size:18px;
+	font-family: 'NanumSquareRound';
+	background-color:  #329632;
+	padding: 15px;
+	text-align:center;
+	color:white;
 }
 
 .result_text{
@@ -352,6 +381,7 @@
 	font-size:15px; 
 	font-family:none;
 	background-color: rgba(220,220,220,0.1);
+	border-bottom: 1px solid rgba(220,220,220,1);
 }
 
 #input:hover{
@@ -363,7 +393,6 @@
 	height:auto;
 	padding: 15px;
 	font-size: 15px;
-	background-color: rgba(220,220,220,0.1);
 	overflow: auto;
 	max-height:222px;
 }
@@ -395,6 +424,7 @@
 	background:url('./imgs/images.png') no-repeat 97% 50%/17px auto;
 	background-color: white;
 	appearance: none;
+    box-shadow: 0 2px 8px 0px #b4b4b4;	
 }
 
 #made_board{
@@ -416,14 +446,4 @@ textarea{
 
 select, textarea:focus{
 	outline: 0;
-}
-
-ul {
-  	list-style-type: none;
-	width:10%;
- 	margin: 0;
-  	padding: 0;
-  	overflow: hidden;
-  	border: 1px solid #46BEFF;
-	box-shadow: 0 2px 8px 0px #f0f1f2;
 }

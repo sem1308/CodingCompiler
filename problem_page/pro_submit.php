@@ -112,7 +112,7 @@
 										<div class = "label" >입력</div>
 										<textarea id = "input"></textarea>
 										<div class = "arrow_img"><img src="../css/imgs/start.png" class = "run_button" onclick="get_result()"></div>
-										<div class = "label">출력</div>
+										<div class = "label">테스트</div>
 										<div id="result"></div>
 									</div>			
 								</div>
@@ -120,44 +120,44 @@
 						</div>
 					</div>
 				</div>
-				<div class = "submit_box">
-					<div class= "submit_wrapper">
-						<button class = "submit_button" onclick="submit()">제출</button>
-						<table id = "submit_res" class="submit_res_box">
-							<?php echo $submit_table_init?>
-						</table>
-						<div id = "ans_block">
-							<div class = "sub_ans_box">
-								<div class = "show_ans top">
-									<span class = "ans_pro">정답률:</span><span id = "ans_pro" class="ans_pro">-</span>							
-								</div>
-								<div id = "correct">
-									correct
-								</div>
-								<div id = "incorrect">
-									incorrect
-								</div>
-								<div class = "show_ans">
-									<span class = "ans_label">정답</span><span class = "ans_label">전체</span>								
-								</div>
-								<div class = "show_ans">
-									<span id = "y_cnt" class = "ans_label">-</span> / <span id = "w_cnt" class = "ans_label">-</span>
-								</div>
-							</div>
-						</div>
-					</div>				
+			</div>
+			<div class = "middle_bottom">
+				<button class = "submit_button" onclick="submit()">제출</button>
+				<div class = "case_block">
+					<div class = "menu">예제</div>
+					<div class = "case_menu">1</div>
+					<div class = "case_menu">2</div>
+					<div class = "case_menu">3</div>
+					<div class = "case_menu">4</div>
 				</div>
 			</div>
-			<div class = "case_block">
-				<ul>
-					<li class = "menu">예제</li>
-					<li class = "case_menu">1</li>
-					<li class = "case_menu">2</li>
-					<li class = "case_menu">3</li>
-					<li class = "case_menu">4</li>
-				</ul>
-				<div></div>
-			</div>
+		</div>
+		<div class = "submit_box">
+			<div class= "submit_wrapper">
+				<div class = "submit_label">제출 결과</div>
+				<table id = "submit_res" class="submit_res_box">
+					<?php echo $submit_table_init?>
+				</table>
+				<div id = "ans_block">
+					<div class = "sub_ans_box">
+						<div class = "show_ans top">
+							<span class = "ans_pro">정답률:</span><span id = "ans_pro" class="ans_pro">-</span>							
+						</div>
+						<div id = "correct">
+							correct
+						</div>
+						<div id = "incorrect">
+							incorrect
+						</div>
+						<div class = "show_ans">
+							<span class = "ans_label">정답</span><span class = "ans_label">전체</span>								
+						</div>
+						<div class = "show_ans">
+							<span id = "y_cnt" class = "ans_label">-</span> / <span id = "w_cnt" class = "ans_label">-</span>
+						</div>
+					</div>
+				</div>
+			</div>				
 		</div>
 	</div>
 </body>
