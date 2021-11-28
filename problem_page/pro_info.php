@@ -66,8 +66,6 @@
 		"문제 내용" => $contents,
 		"입력 형식" => $restricts,
 		"출력 형식" => $output,
-		"예제" => $example,
-		"tag" => $tags,
 	);
 
 	#제한 및 정보 저장
@@ -80,47 +78,36 @@
 
 	#상세 정보 출력
 	function show($title,$contents){
-		static $case_cnt=1;
-		$is_case = strpos($title, "case");
-		$is_input = ($title==="input");
-		$is_output = ($title==="output");
-		$w_case=null;
-		$case=null;
-		static $case_idx=0;
-		if(!is_int($title)){
-			if($is_case !== false){
-				$case_idx++;
-				$title = "<span id = ".$case_idx." class=\"case_label\"></span><div class=\"pro_info_title case\" onMouseOver=\"show_copy_msg(".$case_idx.")\" onMouseLeave=\"init_copy_msg(".$case_idx.")\" onclick= \"copy(".$case_idx.")\">#</div>";
-			}else if($is_input !== false || $is_output !== false){
-				$title = "<div class=\"pro_info_title result\">$title</div>";
-				$w_case = "wrap";
-			}else{
-				$title = "<div class=\"pro_info_title\">$title</div>";			
-			}
-		}else{
-			$title = null;
-		}
-		echo"<div class = \"wrapper $w_case\">$title";	
-		if($is_case !== false){
-			echo"<div class=\"pro_info_case\">";		
-		}
-		if(is_array($contents)){
-			foreach($contents as $key => $value){
-				show($key,$value);
-			}
-		}else{
-			if($is_input !== false){
-				echo "<pre id=input_".$case_idx." class=\"ex_result\">$contents</pre>";
-			}else if($is_output !== false){
-				echo "<pre class=\"ex_result\">$contents</pre>";				
-			}else{
-				echo "<div class=\"pro_info_contents\">$contents</div>";
-			}
-		}
+		static $case_cnt=1;	
+		echo"<div class = \"wrapper\"><div class=\"pro_info_title\">$title</div>
+		<div class=\"pro_info_contents\">$contents</div></div>";
+	}
+
+	function show_case(){
+		global $example;
+		$num = 0;
+		echo "<div class='wrapper'><div class=\"pro_info_title\">예제</div>";
+		foreach($example as $ex){
+			$input = $ex['input'];
+			$output = $ex['output'];
+			++$num;
+			echo "<div class='wrapper'><div class=\"pro_info_title\"><span id = ".$num." class=\"case_label\"></span><div class=\"pro_info_title case\" onMouseOver=\"show_copy_msg(".$num.")\" onMouseLeave=\"init_copy_msg(".$num.")\" onclick= \"copy(".$num.")\">#</div></div><div class = 'pro_info_case'><div class = 'wrap'><div class='result'>input</div><pre id=input_".$num." class=\"ex_result\">$input</pre></div><div class = 'wrap'><div class='result'>output</div><pre class=\"ex_result\">$output</pre></div></div></div>";
+		}		
 		echo "</div>";
-		if(strpos($title, "case") !== false){
-			echo "</div>";
-		}
+	}
+
+	function show_tag(){
+		global $tags;
+		echo "<div class='wrapper'><div class=\"pro_info_title\">태그</div>";
+		foreach($tags as $tag){
+			echo "<div class='wrapper'><div class = 'pro_info_contents'>$tag</div></div>";
+		}	
+		echo "</div>";
+	}
+
+	function show_tr(){
+		global $restrict_info;
+		echo "<span class='pro_title_right'>시간제한: ".$restrict_info['시간 제한']."</span><span class='pro_title_right'>정답률: ".$restrict_info['정답률']."</span>";
 	}
 ?>
 
@@ -147,8 +134,11 @@
 		</div>
 		<div class="pro_main">
 			<div class = "main_middle">
-				<div class = "pro_title">
-					<?php echo $title?>
+				<div class="pro_info_top">
+					<div class = "pro_title">
+						<?php echo $title?>
+						<?php show_tr()?>
+					</div>
 				</div>
 				<div class="pro_info_middle">
 					<div class="pro_info">
@@ -156,6 +146,8 @@
 							foreach($problem as $key => $value){
 								show($key,$value);
 							}
+			   				show_case();
+						   	show_tag();
 						?>
 					</div>
 				</div>
