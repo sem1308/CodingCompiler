@@ -48,9 +48,9 @@
 	function show_case($num){
 		global $example;
 		$ex = $example[$num];
-		echo "<div class=\"pro_info_title\"><span id = ".$num." class=\"case_label\"></span><div class=\"pro_info_title case\" onMouseOver=\"show_copy_msg(".$num.")\" onMouseLeave=\"init_copy_msg(".$case_idx.")\" onclick= \"copy(".$num.")\">#</div></div>";
 		$input = $ex['input'];
 		$output = $ex['output'];
+		echo "<div class=\"pro_info_title\"><span id = ".$num." class=\"case_label\"></span><div class=\"pro_info_title case\" onMouseOver=\"show_copy_msg(".$num.")\" onMouseLeave=\"init_copy_msg(".$case_idx.")\" onclick= \"copy(".$num.")\">#</div></div>";
 		echo "<div class = 'pro_info_case'><div class = 'wrap'><div class='result'>input</div><pre id=input_".$case_idx." class=\"ex_result\">$input</pre></div>";
 		echo "<div class = 'wrap'><div class='result'>output</div><pre class=\"ex_result\">$output</pre></div></div>";
 	}
@@ -122,15 +122,17 @@
 				</div>
 			</div>
 			<div class = "middle_bottom">
-				<button class = "submit_button" onclick="submit()">제출</button>
+				<div class = "submit_button" onclick="submit()">제출</div>
 				<div class = "case_block">
-					<div class = "menu">예제</div>
-					<div class = "case_menu">1</div>
-					<div class = "case_menu">2</div>
-					<div class = "case_menu">3</div>
-					<div class = "case_menu">4</div>
+					<div class = "menu"><span class="menu_label">예제</span></div>
+					<?php
+						for($idx = 1; $idx<=count($example); $idx++){
+							echo "<div class = \"case_menu\" onclick='show_ex($idx)'>$idx</div>";
+						}
+					?> 
 				</div>
 			</div>
+			<div id="example"></div>
 		</div>
 		<div class = "submit_box">
 			<div class= "submit_wrapper">
@@ -211,7 +213,7 @@
 	}
 	function get_result(){
 		const obj = document.getElementById('result');
-		obj.innerHTML = "<img src=\"../css/imgs/roading.gif\" width=\"20px\" height=\"20px\">";
+		obj.innerHTML = "<img src=\"../css/imgs/roading.gif\" class='roading_img'>";
 		$.ajax({
 			url: "<?php echo $base_root?>/php/compile.php",
 			type: "GET",
@@ -271,7 +273,7 @@
 		let case_num;
 		for(let i=0; i<len; i++){
 			case_num = i+1;
-			board = board+"<tr><td class=\"submit_table\" style=\"width:35%;\">"+case_num+"</td><td class=\"submit_table\" style=\"width:30%;\"><img id='roading_img_"+case_num+"' src=\"../css/imgs/roading.gif\" width=\"20px\" height=\"20px\"><span id=case_"+case_num+"></span></td><td id=case_time_"+case_num+" class=\"submit_table\">-</td></tr>";
+			board = board+"<tr><td class=\"submit_table\" style=\"width:35%;\">"+case_num+"</td><td class=\"submit_table\" style=\"width:30%;\"><img id='roading_img_"+case_num+"' src=\"../css/imgs/roading.gif\" class='roading_img'><span id=case_"+case_num+"></span></td><td id=case_time_"+case_num+" class=\"submit_table\">-</td></tr>";
 		}
 		board = board+"</tbody>";
 		obj.innerHTML = obj.innerHTML+board;
@@ -283,7 +285,7 @@
 			const img = document.getElementById('roading_img_'+case_num);
 			const t = document.getElementById('case_time_'+case_num);
 			const c = document.getElementById('case_'+case_num);
-			img.setAttribute('style','display:block; margin-left:21px;');
+			img.setAttribute('style','display:block; margin:0 auto;');
 			t.innerHTML = '-';
 			c.innerHTML = null;
 		}
@@ -384,14 +386,14 @@
 		msg.innerText="복사 완료";
 		msg.setAttribute("style","display:block;");
 	}
-	function show_copy_msg(num) {
-		const msg = document.getElementById(num)
-		msg.innerText="입력 복사";
-		msg.setAttribute("style","display:block;");
-	}
-	function init_copy_msg(num) {
-		const msg = document.getElementById(num)
-		msg.setAttribute("style","display:none");
+	
+	function show_ex(num){
+		const examples = <?php echo json_encode($example); ?>;
+		const example = examples[num];
+		const e = document.getElementById('example');
+		const input = example['input'];
+		const output = example['output'];
+		e.innerHTML = "<div class = 'pro_info_case'><div class = 'wrap'><div class = 'label_wrap'><div class='result'>input</div><div class = 'copy_label' onclick='copy("+num+")'>복사</div></div><pre id=input_"+num+" class=\"ex_result\">"+input+"</pre></div><div class = 'wrap'><div class='result'>output</div><pre class=\"ex_result\">"+output+"</pre></div></div>";
 	}
 	
 	get_io_data();

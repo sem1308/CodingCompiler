@@ -75,7 +75,7 @@
 	transition-duration:0.3s;
     font-family: 'NanumSquareRound';
 	font-size:18px;
-	padding: 5px 18px;
+	padding: 0px 18px;
 	color:#147814;
 	display:flex;
 	justify-content:center;
@@ -83,8 +83,13 @@
 }
 
 .menu{
-	background-color:#4BAF4B;
-	color:white;
+	color:#4BAF4B;
+}
+
+.menu_label{
+	height:auto;
+	width:auto;
+	border-bottom: 3px solid #4BAF4B;
 }
 
 .case_menu:hover{
@@ -100,7 +105,7 @@
 	display:block;
 	width:20%;
 	font-size: 35px;
-	margin-top: 50px;
+	margin-top: 40px;
 	margin-bottom: 30px;
 }
 .pro_title:link {color: black; text-decoration: none;}
@@ -138,28 +143,33 @@
 	font-size: 25px;
 }
 
-.case{
-	font-family: 'NanumSquareRound';
-	font-size: 15px;
-	position: absolute;
-	text-align:center;
-	background-color: #00C3FF;
-	padding: 11px 11px;
-	color:white;
-	border-radius: 50%;
-	width:25px;
-	top: 20px;
-	left: -50px;
+.label_wrap{
+	display:inline-flex;
 }
 
-.case:hover{
-	transition-duration: 0.5s;
-	background-color: #3CAEFF;
+.copy_label{
+    font-family: 'NanumSquareRound';
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	font-size:15px;
+	margin-top:7px;
+	margin-left:10px;
+	padding: 0px 7px;
+	color:#1E821E;
 }
 
-.case:active{
+.copy_label:hover{
+	transition-duration: 0.3s;
+	content:"복사";
+	color: #0A6E0A;
+	cursor:pointer;
+    box-shadow: 1px 1px 2px 0px #4BAF4B;
+}
+
+.copy_label:active{
 	transition-duration: 0s;
-	background-color: #28A0FF;
+    box-shadow: 1px 2px 4px 0px #4BAF4B;
 }
 
 .case_label{
@@ -170,7 +180,7 @@
 	color:#6ED746;
 	font-size:12px;
 	top: 66px;
-	left: -53px;
+	left: 68px;
 	animation:fadein;
 	animation-duration:1s;
 }
@@ -189,11 +199,10 @@
 
 .wrap{
 	width: 25%;
-	padding-left:20px;
-}
-
-.wrap:first-child{
-	border-right:1px solid #46CCFF;
+	margin-right:15px;
+    box-shadow: 1px 1px 2px 0px #4BAF4B;
+	padding: 15px;
+	overflow:auto;
 }
 
 .pro_info_case{
@@ -202,6 +211,8 @@
 	direction: row;
 	width:100%;
 	margin-top:20px;
+	animation:fadein;
+	animation-duration:0.5s;
 }
 
 .middle_right{
@@ -211,13 +222,18 @@
 }
 
 .submit_button{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	transition:0.3s;
 	border: none;
 	font-size:18px;
 	font-family: 'NanumSquareRound';
 	background-color:  #329632;
+    box-shadow: 0 2px 8px 0px #b4b4b4;	
 	width:20%;
 	float:right;
-	padding: 15px;
+	height:100%;
 	color:white;
 }
 
@@ -229,7 +245,7 @@
 .middle_bottom{
 	margin: 0 auto;
 	margin-top:10px;
-	height:5%;
+	height:50px;
 	width:90%;
 	box-shadow: 0 4px 8px 0px #b4b4b4;
 }
@@ -253,7 +269,7 @@
 }
 
 .code_submit_block{
-	padding-top:80px;
+	padding-top:65px;
 	margin:0 auto;
 	height:auto;
 	width:90%;
@@ -371,6 +387,14 @@
 	justify-content:center;
 	font-size: 35px;
 	color:#2CE0BC;
+}
+
+#example{
+	position:relative;
+	width:90%;
+	height:auto;
+	margin: 0 auto;
+	margin-bottom:30px;
 }
 
 #input{
