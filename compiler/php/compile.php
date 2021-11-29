@@ -1,11 +1,16 @@
 <?php
-	session_start();
-	$id = session_id();
 	$file_name = "newfile";
     $langauge = $_GET["language"];
     $value = $_GET["value"];
 	$input = $_GET["input"];
-	$file_link = "../files";
+	if($_COOKIE['token'] == null){
+		session_start();
+		$id = session_id();
+		$file_link = "../files/others";
+	}else{
+		$id = $_COOKIE['token'];
+		$file_link = "../files";
+	}
 	$user_file_link = "$file_link/$id";
 	if(!is_dir($user_file_link)){
 		system("mkdir $user_file_link");

@@ -109,13 +109,15 @@
 		global $restrict_info;
 		echo "<span class='pro_title_right'>시간제한: ".$restrict_info['시간 제한']."</span><span class='pro_title_right'>정답률: ".$restrict_info['정답률']."</span>";
 	}
+
+	$conn->close();
 ?>
 
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>CoCo</title>
-	<link href="../css/problem_info.css" rel="stylesheet" type="text/css" />
+	<link href="../css/problem_info.css" rel="stylesheet" type="text/css"/>
     <script src="//code.jquery.com/jquery.min.js"></script>
 </head>
 <body>
@@ -123,6 +125,16 @@
 		<a class = "main_top" href = "/">
 			<span style="color:gray;">Co</span><span class="title_right">ding</span>.<span style="color:gray;">Co</span><span class="title_right">mpiler</span>
 		</a>
+		<div class="top_right">
+			<?php
+				$id = $_COOKIE['id'];
+				if($_COOKIE['token'] == null){				
+					echo "<a href = '/login.php' class='top_right_label'>로그인</a><a href = '/register.php' class='top_right_label'>회원가입</a>";
+				}else{
+					echo "<span class = 'id_label'>$id</span><a href='./pro_info.php?number=$number' onclick='logout()' class='top_right_label'>로그아웃</a>";						
+				}
+			?>
+		</div>
 	</div>
 	<div class="main">
 		<div class="pro_button_block">
@@ -155,7 +167,6 @@
 		</div>
 	</div>
 </body>
-</html>
 <script>
 	function copy(num) {
 		var copyText = document.getElementById("input_"+num).innerText;
@@ -179,9 +190,11 @@
 		const msg = document.getElementById(num)
 		msg.setAttribute("style","display:none");
 	}
+	function logout(){
+		let date = new Date();
+		date.setDate(date.getDate() - 100);
+		let Cookie = `token=;Expires=${date.toUTCString()}`+'domain=prog-coco.run.goorm.io;path=/;'
+		document.cookie = Cookie;
+	}
 </script>
-
-<?php
-	$conn->close();
-?>
-
+</html>

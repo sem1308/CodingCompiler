@@ -28,6 +28,16 @@
 	<div class="header">
 		<a class = "main_top" href = "/">
 			<span style="color:gray;">Co</span><span class="title_right">ding</span><span style="color:black;">.</span><span style="color:gray;">Co</span><span class="title_right">mpiler</span>
+			<div class="top_right">
+				<?php
+					$id = $_COOKIE['id'];
+					if($_COOKIE['token'] == null){				
+						echo "<a href = 'login.php' class='top_right_label'>로그인</a><a href = 'register.php' class='top_right_label'>회원가입</a>";
+					}else{
+						echo "<span class = 'id_label'>$id</span><a href='/compiler' onclick='logout()' class='top_right_label'>로그아웃</a>";						
+					}
+				?>
+			</div>
 		</a>
 	</div>
 	<div class = "main">
@@ -142,6 +152,12 @@
 				value = value+"<div>소요시간: "+history.runtime+"s</div>"+"<pre class='result_text'>"+history.result+"</pre><br><br>";
 			})
 			obj.innerHTML=value;
+		}
+		function logout(){
+			let date = new Date();
+			date.setDate(date.getDate() - 100);
+			let Cookie = `token=;Expires=${date.toUTCString()}`
+			document.cookie = Cookie;
 		}
 		categoryChange();
     </script>

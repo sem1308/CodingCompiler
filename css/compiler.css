@@ -19,6 +19,44 @@
     background: #fff;
     box-shadow: 0 2px 8px 0px #dcdcdc;
 	height:80px;
+	position:relative;
+	display: flex;
+	justify-content: center;
+}
+
+.top_right{
+	position:absolute;
+	line-height:1.2;
+	right:30px;
+	top: 30px;
+}
+
+.id_label{
+	font-family: 'NanumSquareRound';
+	font-size:14px;
+	color: #828282;
+	margin-right:10px;
+	line-height:1.2;
+}
+
+.top_right_label{
+    font-family: 'NanumSquareRound';
+	background-color:#4BAF4B;
+	font-size:14px;
+	color:white;
+	padding: 9px;
+	margin: 10px;
+	border-radius:10%;
+	box-shadow: 0px 2px 4px 0 #828282;
+	transition-duration:0.2s;
+}
+
+.top_right_label:link{
+	color:white;
+}
+.top_right_label:visited { color: white;}
+.top_right_label:hover{
+	background-color:#147814;
 }
 
 .main{
@@ -32,7 +70,7 @@
 	font-size: 45px;
 	line-height:75px;
 	font-family: none;
-	display: flex;
+	display: inline-flex;
 	justify-content: center;
 }
 
