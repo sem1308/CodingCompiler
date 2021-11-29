@@ -1,4 +1,8 @@
 <?php
+	if($_COOKIE['token']==null){
+		$prevPage = "../login.php";
+		header('location:'.$prevPage);
+	}
 	$root="../compiler/codemirror";
 	$base_root="../compiler";
 	$number = $_GET['number'];
@@ -83,6 +87,16 @@
 		<a class = "main_top" href = "/">
 			<span style="color:gray;">Co</span><span class="title_right">ding</span><span style="color:black;">.</span><span style="color:gray;">Co</span><span class="title_right">mpiler</span>
 		</a>
+		<div class="top_right">
+			<?php
+				$id = $_COOKIE['id'];
+				if($_COOKIE['token'] == null){				
+					echo "<a href = '/login.php' class='top_right_label'>로그인</a><a href = '/register.php' class='top_right_label'>회원가입</a>";
+				}else{
+					echo "<span class = 'id_label'>$id</span><a href='./pro_submit.php?number=$number' onclick='logout()' class='top_right_label'>로그아웃</a>";						
+				}
+			?>
+		</div>
 	</div>
 	<div class ="main">
 		<div class="pro_button_block">
@@ -178,6 +192,14 @@
 	let outputs;
 	let len;
 	let board="<tbody id = \"made_board\">";
+	
+	function logout(){
+		let date = new Date();
+		date.setDate(date.getDate() - 100);
+		let Cookie = `token=;Expires=${date.toUTCString()}`+'domain=prog-coco.run.goorm.io;path=/;'
+		document.cookie = Cookie;
+	}
+	
 	function categoryChange(){
 		let default_code;
 		let lan = $('#language').val();
