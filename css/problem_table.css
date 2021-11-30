@@ -185,8 +185,8 @@ li{
 	list-style-type:none;
 }
 
-.data:link {color:blue;}
-.data:visited{color:blue;}
+.data:link {color:black;}
+.data:visited{color:black;}
 .data:hover{text-decoration: underline;}
 
 .top_right{
