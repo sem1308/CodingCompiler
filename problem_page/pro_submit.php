@@ -186,6 +186,7 @@
 		autocorrect: true
 	});
 	editor.setSize('80%', 600);
+	const user_id = '<?php echo $_COOKIE['id'];?>';
 	var result;	
 	let is_made = false;
 	let inputs;
@@ -260,15 +261,22 @@
 		const incor = document.getElementById('incorrect');
 		cor.setAttribute('style', 'display:none');
 		incor.setAttribute('style', 'display:none');
-		const is_correct = await show_sub_res();
+		let [is_correct,compile_time] = await show_sub_res();
+		console.log(is_correct);
 		$.ajax({
 			url: "./php/push_result.php",
 			type: "POST",
 			data: {
 				id: <?php echo $number?>,
 				correct: is_correct,
+				user_id: user_id,
+				language: $('#language').val(),
+				code: editor.getValue(),
+				c_time: compile_time,
 			},
 			success: function(data){
+				compile_time=0;
+				console.log(JSON.parse(data));
 			}
 		});
 	}
@@ -318,7 +326,7 @@
 	}
 	
 	function show_sub_res(){
-		return new Promise((resolve, reject)=>{
+		return new Promise((resolve)=>{
 			if(!is_made){
 				const b = document.getElementById("made_board");
 				b.setAttribute('style','display:table-row-group;');
@@ -329,6 +337,7 @@
 			let ans_cnt=0;
 			let end_cnt=0;
 			let is_correct=0;
+			let compile_time=0;
 			for(let i=0; i<len; i++){
 				let case_num = i+1;
 				$.ajax({
@@ -345,9 +354,8 @@
 						let output = outputs[i].trim();
 						output = output.replace(/\r/g, "");
 						result = result.replace(/\r/g, "");
-						console.log(output);
-						console.log(result);
 						time = results.runtime;
+						compile_time = compile_time+parseFloat(time);
 						if(result[result.length-1] == '\n'){
 							result = result.slice(0,result.length-1);
 						}
@@ -362,7 +370,7 @@
 						}else{
 							if((output == result) || (parseFloat(output) == parseFloat(result))){
 								ans_cnt += 1;
-								c.innerHTML = '<span style="color: blue; ">O</span>';	
+								c.innerHTML = '<span style="color: blue; ">O</span>';
 							}else{
 								c.innerHTML = '<span style="color:red;">X</span>';
 							}
@@ -388,7 +396,8 @@
 								cor.setAttribute('style', 'display:none');
 								incor.setAttribute('style', 'display:block');
 							}
-							resolve(is_correct);
+							compile_time /= len;
+							resolve([is_correct,compile_time]);
 						}
 					}
 				});

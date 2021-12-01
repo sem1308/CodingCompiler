@@ -1,0 +1,15 @@
+.table_block{
+	display:flex;
+	justify-content:center;
+}
+
+.code{
+	width:100%;
+}
+table { 
+	width:80%;
+	margin-top:100px;
+	border-collapse:collapse; 
+}
+
+th, td { border:1px solid black; }

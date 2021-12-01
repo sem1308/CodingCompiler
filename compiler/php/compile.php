@@ -1,6 +1,6 @@
 <?php
 	$file_name = "newfile";
-    $langauge = $_GET["language"];
+    $language = $_GET["language"];
     $value = $_GET["value"];
 	$input = $_GET["input"];
 	if($_COOKIE['token'] == null){
@@ -22,11 +22,11 @@
 	$end=0;
 	$start=0;
 	
-    $test_file = fopen("$user_file_link/$file_name.$langauge","w") or die("Unable to open file!");
+    $test_file = fopen("$user_file_link/$file_name.$language","w") or die("Unable to open file!");
     fwrite($test_file,$value);
     fclose($test_file);
 	$results = array();
-    switch($langauge){
+    switch($language){
         case "java":
 			$error = shell_exec("cd $user_file_link; javac $file_name.java 2>&1");
 			if($error){
@@ -54,9 +54,9 @@
 			break;
 		default:
 			$compile_type;
-			if($langauge == "c") $compile_type = "gcc";
+			if($language == "c") $compile_type = "gcc";
 			else $compile_type = "g++";
-			$error = shell_exec("$compile_type $user_file_link/$file_name.$langauge -o $user_file_link/$file_name 2>&1");
+			$error = shell_exec("$compile_type $user_file_link/$file_name.$language -o $user_file_link/$file_name 2>&1");
 			if($error){
 				$result = $error;
 			}else{
