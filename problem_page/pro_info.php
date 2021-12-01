@@ -140,7 +140,7 @@
 		<div class="pro_button_block">
 			<a href="./" class="pro_button">문제 목록</a>
 			<a href="./pro_submit.php?number=<?php echo $number?>" class="pro_button">컴파일 & 제출</a>
-			<a class="pro_button">내 제출</a>
+			<a href="./pro_my_submit.php?number=<?php echo $number?>" class="pro_button">내 제출</a>
 			<a class="pro_button">정답자</a>
 			<a class="pro_button">Q&A</a>
 		</div>
