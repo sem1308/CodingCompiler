@@ -41,8 +41,9 @@
 		default:
 			break;
     }
-
-	$insert_query= "INSERT INTO users_submits values('$user_id',$pro_id,'$language',$c_time,'$is_correct','$code') ";
+	
+	$code = str_replace('"','\"',$code);
+	$insert_query= "INSERT INTO users_submits values('$user_id',$pro_id,'$language',$c_time,'$is_correct',\"$code\") ";
 	$result = $connect->query($insert_query);
 	
 	echo json_encode(array($user_id,$language,$code,$c_time));

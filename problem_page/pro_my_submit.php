@@ -26,25 +26,35 @@
 			  array_push($return,$row);
 			}
 			return $return;
-		} else {
-			die("Database Error: " . $conn->connect_error);
 		}
 	}
 	
+	# 문제 제목 가져오기
+	$sql = "SELECT title FROM problem_info WHERE id = \"$number\""; 
+	$result = get_result($sql)[0];
+	$title = $result['title'];
+
 	# 문제 기본 정보 가져오기
 	$sql = "SELECT * FROM users_submits WHERE id = \"$id\" AND pro_id = $number "; 
 	$result = get_result($sql);
+	$language = array();
+	foreach($result as $row){
+		array_push($language,$row['language']);
+	}
+
 	function show_table(){
 		global $result;
 		static $i=1;
 		foreach($result as $row){
 			if($row['is_correct'] == 0){
-				$is_correct = 'X';			
+				$is_correct = 'incorrect';
+				$color='red';
 			}else{
-				$is_correct = 'O';			
+				$is_correct = 'correct';		
+				$color='blue';
 			}
-			echo "<tr><th>문제 번호</th><td>".$row['pro_id']."</td><th>유저</th><td>".$row['id']."</td><th>컴파일 시간</th><td>".$row['compile_time']."</td><th>정답</th><td>$is_correct</td></tr>";
-			echo "<tr><td colspan='8'><textarea id='code_".$i++."'>".$row['code']."</textarea></td></tr>";
+			echo "<div class='submit_box'><span class = 'ex_box'><span class = 'lan'>".$row['language']."</span><span style='color:$color' class='cor'>$is_correct</span><span class = 'time'>".$row['compile_time']."s</span></span>";
+			echo "<div><textarea id='code_".$i++."'>".$row['code']."</textarea></div></div>";
 		}
 	}
 ?>
@@ -71,10 +81,10 @@
 	<script src="<?php echo $root?>/mode/htmlmixed/htmlmixed.js"></script>
 	<script src="<?php echo $root?>/addon/edit/matchbrackets.js"></script>
 </head>
-<body>
+<body style="background-color:white">
 	<div class="header">
 		<a class = "main_top" href = "/">
-			<span style="color:gray;">Co</span><span class="title_right">ding</span>.<span style="color:gray;">Co</span><span class="title_right">mpiler</span>
+			<span style="color:gray;">Co</span><span class="title_right">ding</span><span style="color:black;">.</span><span style="color:gray;">Co</span><span class="title_right">mpiler</span>
 			<div class="top_right">
 				<?php
 					$id = $_COOKIE['id'];
@@ -88,22 +98,44 @@
 		</a>
 	</div>
 	<div class = "main">
+		<div class="pro_button_block">
+			<a href="./" class="pro_button">문제 목록</a>
+			<a href="./pro_submit.php?number=<?php echo $number?>" class="pro_button">컴파일 & 제출</a>
+			<a href="./pro_info.php?number=<?php echo $number?>" class = "pro_button">문제로 돌아가기 (<?php echo $title?>)</a>
+			<a class="pro_button">정답자</a>
+			<a class="pro_button">Q&A</a>
+		</div>
 		<div class = "table_block">
-			<table>
-				<?php show_table(); ?>
-			</table>
+			<?php show_table(); ?>
 		</div>
 	</div>
 </body>
 <script>
 	let len = '<?php echo count($result);?>';
-	for(let i=1; i<=len; i++){
-		var editor = CodeMirror.fromTextArea(document.getElementById("code_"+i), {
+	let language = <?php echo json_encode($language)?>;
+	
+	for(let i=0; i<len; i++){
+		let lan = language[i];
+		switch(language[i]){
+			case "cpp":
+				lan = "text/x-c++src";
+				break;
+			case "c":
+				lan = "text/x-csrc";
+				break;
+			case "java":
+				lan = "text/x-java";
+				break;
+			default:
+				break;
+		}
+		var editor = CodeMirror.fromTextArea(document.getElementById("code_"+(i+1)), {
 			lineNumbers: true,
 			indentUnit: 4,
 			matchBrackets: true,
 			spellcheck: true,
-				autocorrect: true
+			autocorrect: true,
+			mode: lan,
 		});
 		editor.setSize('100%', '100%');
 	}
