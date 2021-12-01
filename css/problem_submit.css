@@ -280,7 +280,7 @@
 	margin: 0 auto;
 	margin-top:10px;
 	height:50px;
-	width:90%;
+	width:85%;
 	box-shadow: 0 4px 8px 0px #b4b4b4;
 }
 
@@ -303,10 +303,10 @@
 }
 
 .code_submit_block{
-	padding-top:65px;
+	padding-top:100px;
 	margin:0 auto;
 	height:auto;
-	width:90%;
+	width:85%;
 }
 
 .code_wrapper{

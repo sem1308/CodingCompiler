@@ -1,15 +1,89 @@
-.table_block{
-	display:flex;
-	justify-content:center;
+.CodeMirror {
+	border: 1px solid #ddd;
+	box-shadow: 0 3px 8px 0 #b4b4b4;
 }
 
-.code{
+.CodeMirror-code {
+  font-family: none;
+  font-size: 80%;
+}
+
+
+.table_block{
+	height: auto;
+	display:flex;
+	padding: 100px 0;
+	flex-direction:column;
+	margin: 0 auto;
+}
+
+.main{
+	display:inline-flex;
+	justify-content:center;
 	width:100%;
 }
-table { 
-	width:80%;
-	margin-top:100px;
-	border-collapse:collapse; 
+
+.title_right{
+	color:black;
 }
 
-th, td { border:1px solid black; }
+.pro_button_block{
+	height:auto;
+	width:15%;
+	background: #329632;
+    box-shadow: 2px 2px 8px 0px #8c8c8c;
+}
+
+.pro_button{
+	font-family: 'NanumSquareRound';
+	border:none;
+	display:flex;
+	align-items:center;
+	padding: 22px 0;
+	padding-left:15px;
+	font-size: 18px;
+	text-align:left;
+	color: white;
+	height:25px;
+}
+.pro_button:link {color: white; text-decoration: none;}
+.pro_button:visited {color: white; text-decoration: none;}
+
+.pro_button:hover{
+	background: #0A6E0A;
+	cursor:pointer;
+}
+
+.top_right{
+	line-height:1.2;
+}
+
+.main_top{
+	font-family:none;	
+}
+
+.submit_box{
+	width:1000px;
+	margin-bottom: 100px;
+}
+
+.submit_box .time{
+	margin: 0 3px;
+}
+
+.submit_box .cor,.lan{
+	margin: 0 5px;
+	padding-right: 9.5px;
+	border-right: 1px solid #b4b4b4;
+}
+
+.ex_box{
+	line-height:1.8;
+	padding:6px;
+	border: 1px solid #ddd;
+	box-shadow: 0 3px 8px 0 #b4b4b4;	
+}
+
+
+a:link { color: black; text-decoration: none;}
+a:visited { color: black; text-decoration: none;}
