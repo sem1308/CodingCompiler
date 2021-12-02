@@ -5,7 +5,6 @@
 
 .CodeMirror-code {
   font-family: none;
-  font-size: 80%;
 }
 
 
@@ -27,11 +26,21 @@
 	color:black;
 }
 
+.pro_title{
+	width:1000px;
+	font-size: 35px;
+	margin-bottom: 30px;
+}
+
 .pro_button_block{
 	height:auto;
 	width:15%;
 	background: #329632;
     box-shadow: 2px 2px 8px 0px #8c8c8c;
+}
+
+.pro_button_block .current{
+	background: #147814;	
 }
 
 .pro_button{

@@ -7,6 +7,7 @@
 
 .CodeMirror {
 	border: 1px solid #ddd;
+	box-shadow: 0 3px 8px 0 #b4b4b4;
 }
 
 .CodeMirror-code {
@@ -17,7 +18,7 @@
 .header{
     max-width: 100%;
     background: #fff;
-    box-shadow: 0 2px 8px 0px #dcdcdc;
+    box-shadow: 0 2px 8px 0px #b4b4b4;
 	height:80px;
 	position:relative;
 	display: flex;
@@ -112,6 +113,7 @@
 	display: block;
 	appearance: none;                               
 	padding: .3em 1.2em .1em .5em;
+	box-shadow: 0 3px 8px 0 #b4b4b4;
 	border: 1px solid #aaaaaa;
 	font-size: 13px;
 	background:url('./imgs/images.png') no-repeat 97% 50%/17px auto;
@@ -130,6 +132,8 @@
 }
 
 #input{
+    font-family: 'NanumSquareRound';
+	line-height:1.2;
 	width: 250px; 
 	height: 264px;
 	padding: 10px;
@@ -141,25 +145,28 @@
 	width:100%;
 	padding:25px;
 	font-size: 15px;
-	background-color: #bebebe;
+	background-color: rgba(108, 132, 125,0.8);
 	border: none;
+	color:white;
 }
 
 .run_button:hover{
-	background-color: #aaaaaa;
+	background-color: #6c847d;
 }
 
 .run_button:active{
-	background-color: #828282;
+	background-color: #61716b;
 }
 
 .return{
+	margin-top:10px;
+	box-shadow: 0 3px 8px 0 #b4b4b4;
 	display: inline-flex;
 }
 
 #result, #history{
 	background: white;
-	width: 295px; 
+	width: 294px; 
 	height: 300px; 
 	padding: 15px;
 	font-size: 13px;
@@ -194,8 +201,12 @@
 	justify-content: center;
 	font-family: 'NanumSquareRound';
 	padding: 3px 0px;
-	width: 100%;
-	border: none;
+	padding-top:5px;
+	border-left: 1px solid #ddd;
+}
+
+.history {
+	border-right: 1px solid #ddd;	
 }
 
 select, option{

@@ -43,6 +43,8 @@
 		date.setDate(date.getDate() - 100);
 		let Cookie = `token=;Expires=${date.toUTCString()}`
 		document.cookie = Cookie;
+		Cookie = `id=;Expires=${date.toUTCString()}`+'domain=prog-coco.run.goorm.io;path=/;'
+		document.cookie = Cookie;
 	}
 </script>
 </html>

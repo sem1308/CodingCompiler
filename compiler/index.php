@@ -62,12 +62,12 @@
 						<div id="result"></div>
 					</div>
 					<div class = "input_box">
-						<div class = "label" style = "border-bottom: 1px solid #ddd;">Input</div>
+						<div class = "label" style = "border-bottom: 1px solid #ddd; width: 100%;">Input</div>
 						<textarea id = "input"></textarea>
 						<button type = "button" class = "run_button" onclick="get_result()">RUN</button>
 					</div>
 					<div class = "result_box">
-						<div class = "label">History</div>
+						<div class = "label history">History</div>
 						<div id="history"></div>
 					</div>
 				</div>
@@ -157,6 +157,8 @@
 			let date = new Date();
 			date.setDate(date.getDate() - 100);
 			let Cookie = `token=;Expires=${date.toUTCString()}`
+			document.cookie = Cookie;
+			Cookie = `id=;Expires=${date.toUTCString()}`+'domain=prog-coco.run.goorm.io;path=/;'
 			document.cookie = Cookie;
 		}
 		categoryChange();
