@@ -28,6 +28,15 @@
 		}
 	}
 	
+	# 정답자인지 확인
+	$id = $_COOKIE['id'];
+	$correct_user=false;
+	$sql = "SELECT is_correct FROM users_submits WHERE id = \"$id\" AND pro_id = $number AND is_correct=1"; 
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		$correct_user = true;
+	}
+
 	# 문제 제목 및 시간제한 가져오기
 	$sql = "SELECT title,time_restrict FROM problem_info WHERE id = \"$number\""; 
 	$result = get_result($sql)[0];
@@ -101,9 +110,14 @@
 	<div class ="main">
 		<div class="pro_button_block">
 			<a href="./" class="pro_button">문제 목록</a>
-			<a href="./pro_info.php?number=<?php echo $number?>" class = "pro_button">문제로 돌아가기 (<?php echo $title?>)</a>
+			<a href="./pro_info.php?number=<?php echo $number?>" class = "pro_button">문제 정보 (<?php echo $title?>)</a>
+			<div class="pro_button current">컴파일 & 제출</div>
 			<a href="./pro_my_submit.php?number=<?php echo $number?>" class="pro_button">내 제출</a>
-			<a class="pro_button">정답자</a>
+			<?php
+				if($correct_user){
+					echo '<a href="./correct_answer.php?number='.$number.'" class="pro_button">정답자</a>';				
+				}
+			?>
 			<a class="pro_button">Q&A</a>
 		</div>
 		<div class="pro_main">
@@ -198,6 +212,8 @@
 		let date = new Date();
 		date.setDate(date.getDate() - 100);
 		let Cookie = `token=;Expires=${date.toUTCString()}`+'domain=prog-coco.run.goorm.io;path=/;'
+		document.cookie = Cookie;
+		Cookie = `id=;Expires=${date.toUTCString()}`+'domain=prog-coco.run.goorm.io;path=/;'
 		document.cookie = Cookie;
 	}
 	

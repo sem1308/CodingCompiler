@@ -165,6 +165,10 @@
 	height:25px;
 }
 
+.pro_button_block .current{
+	background: #147814;	
+}
+
 .pro_button:link {color: white; text-decoration: none;}
 .pro_button:visited {color: white; text-decoration: none;}
 
@@ -234,7 +238,7 @@
 .wrap{
 	width: 25%;
 	margin-right:15px;
-    box-shadow: 1px 1px 2px 0px #4BAF4B;
+    box-shadow: 0px 0px 4px 0px #4BAF4B;
 	padding: 15px;
 	overflow:auto;
 }
@@ -425,7 +429,7 @@
 
 #example{
 	position:relative;
-	width:90%;
+	width:85%;
 	height:auto;
 	margin: 0 auto;
 	margin-bottom:30px;

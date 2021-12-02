@@ -1,9 +1,4 @@
 <?php
-	if($_COOKIE['token']==null){
-		$prevPage = "../login.php";
-		header('location:'.$prevPage);
-	}
-
 	$root="../compiler/codemirror";
 	$base_root="../compiler";
 
@@ -28,22 +23,15 @@
 			return $return;
 		}
 	}
-	
-	# 정답자인지 확인
-	$correct_user=false;
-	$sql = "SELECT is_correct FROM users_submits WHERE id = \"$id\" AND pro_id = $number AND is_correct=1"; 
-	$result = $conn->query($sql);
-	if ($result->num_rows > 0) {
-		$correct_user = true;
-	}
+
 
 	# 문제 제목 가져오기
-	$sql = "SELECT title FROM problem_info WHERE id = \"$number\""; 
+	$sql = "SELECT title FROM problem_info WHERE id = \"$number\"";
 	$result = get_result($sql)[0];
 	$title = $result['title'];
 
 	# 문제 기본 정보 가져오기
-	$sql = "SELECT * FROM users_submits WHERE id = \"$id\" AND pro_id = $number "; 
+	$sql = "SELECT * FROM users_submits WHERE pro_id = $number AND is_correct=1"; 
 	$result = get_result($sql);
 	$language = array();
 	foreach($result as $row){
@@ -52,18 +40,17 @@
 
 	function show_table(){
 		global $result;
-		global $correct_user;
 		static $i=1;
 		foreach($result as $row){
 			if($row['is_correct'] == 0){
 				$is_correct = 'incorrect';
 				$color='red';
 			}else{
-				$is_correct = 'correct';
+				$is_correct = 'correct';		
 				$color='blue';
 			}
-			echo "<div class='submit_box'><span class = 'ex_box'><span class = 'lan'>".$row['language']."</span><span style='color:$color' class='cor'>$is_correct</span><span class = 'time'>".$row['compile_time']."s</span></span>";
-			echo "<div><textarea id='code_".$i++."' readonly>".$row['code']."</textarea></div></div>";
+			echo "<div class='submit_box'><span class = 'ex_box'><span class = 'lan'>".$row['id']."</span><span class = 'lan'>".$row['language']."</span><span style='color:$color' class='cor'>$is_correct</span><span class = 'time'>".$row['compile_time']."s</span></span>";
+			echo "<div><textarea id='code_".$i++."'>".$row['code']."</textarea></div></div>";
 		}
 	}
 ?>
@@ -111,12 +98,8 @@
 			<a href="./" class="pro_button">문제 목록</a>
 			<a href="./pro_info.php?number=<?php echo $number?>" class = "pro_button">문제 정보 (<?php echo $title?>)</a>
 			<a href="./pro_submit.php?number=<?php echo $number?>" class="pro_button">컴파일 & 제출</a>
-			<div href="./pro_my_submit.php?number=<?php echo $number?>" class="pro_button current">내 제출</div>
-			<?php
-				if($correct_user){
-					echo '<a href="./correct_answer.php?number='.$number.'" class="pro_button">정답자</a>';				
-				}
-			?>
+			<a href="./pro_my_submit.php?number=<?php echo $number?>" class="pro_button">내 제출</a>
+			<a href="./correct_answer.php?number=<?php echo $number?>" class="pro_button current">정답자</a>
 			<a class="pro_button">Q&A</a>
 		</div>
 		<div class = "table_block">
@@ -165,4 +148,3 @@
 	}
 </script>
 </html>
-

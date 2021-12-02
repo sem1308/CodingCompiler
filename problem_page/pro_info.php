@@ -22,6 +22,15 @@
 			die("Database Error: " . $conn->connect_error);
 		}
 	}
+
+	# 정답자인지 확인
+	$id = $_COOKIE['id'];
+	$correct_user=false;
+	$sql = "SELECT is_correct FROM users_submits WHERE id = \"$id\" AND pro_id = $number AND is_correct=1"; 
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		$correct_user = true;
+	}
 	
 	# 문제 기본 정보 가져오기
 	$sql = "SELECT * FROM problem_info WHERE id = \"$number\""; 
@@ -139,9 +148,14 @@
 	<div class="main">
 		<div class="pro_button_block">
 			<a href="./" class="pro_button">문제 목록</a>
+			<div href="./pro_info.php?number=<?php echo $number?>" class = "pro_button current">문제 정보 (<?php echo $title?>)</div>
 			<a href="./pro_submit.php?number=<?php echo $number?>" class="pro_button">컴파일 & 제출</a>
 			<a href="./pro_my_submit.php?number=<?php echo $number?>" class="pro_button">내 제출</a>
-			<a class="pro_button">정답자</a>
+			<?php
+				if($correct_user){
+					echo '<a href="./correct_answer.php?number='.$number.'" class="pro_button">정답자</a>';				
+				}
+			?>
 			<a class="pro_button">Q&A</a>
 		</div>
 		<div class="pro_main">
@@ -194,6 +208,8 @@
 		let date = new Date();
 		date.setDate(date.getDate() - 100);
 		let Cookie = `token=;Expires=${date.toUTCString()}`+'domain=prog-coco.run.goorm.io;path=/;'
+		document.cookie = Cookie;
+		Cookie = `id=;Expires=${date.toUTCString()}`+'domain=prog-coco.run.goorm.io;path=/;'
 		document.cookie = Cookie;
 	}
 </script>
