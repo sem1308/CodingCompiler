@@ -11,9 +11,6 @@
 	$result = mysqli_query($conn,$sql);
 	
 
-	
-
-
 ?>
 <html>
 <head>
@@ -73,7 +70,7 @@
 				}
 				?>
 				</div></tbody></table>
-		</div>
+		
 	<br><br><br>
 </body>
 </html>
