@@ -15,14 +15,14 @@
 	$title = $_POST['title'];
 	$content = $_POST['content'];
 	$date = date('Y-m-d');
-	$id = $_GET['number'];
+	$number = $_GET['number'];
   
-  if($id && $title && $content){
+  if($id && $title && $content && $number){
       $sql = "insert into board(id,title,content,date,pro_id) values('$id','$title','$content','$date','$number')";
 	  $result = mysqli_query($conn,$sql);
       echo "<script>
       alert('글쓰기가 완료되었습니다.');
-      location.href='board?id=$id';</script>";
+      location.href='board?number=$number';</script>";
     }
     else{
       echo "<script>

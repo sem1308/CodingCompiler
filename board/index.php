@@ -8,7 +8,10 @@
 	$number = $_GET['number'];
 
 	$sql = "select title from problem_info where id=$number";
-	$title = mysqli_query($conn, $sql);
+	$main = mysqli_query($conn, $sql);
+	$main = mysqli_fetch_row($main)[0];
+	
+	
 ?>	
 <html>
 <head>
@@ -42,7 +45,7 @@
 	<div id="board_area">
     
       <h1>Q&A for no.<?php echo $number; ?></h1>
-      <h4><?php echo $title?> 문제에 대해 질문하고 답하는 게시판입니다.</h4>
+      <h4><?php echo $main; ?> 문제에 대해 질문하고 답하는 게시판입니다.</h4>
       <div id="search_box">
         <form action="search_result.php" method="get">
           <select name="catgo">
@@ -75,7 +78,8 @@
 				if(mysqli_num_rows($result)>0){
 					while($row = mysqli_fetch_assoc($result)){
 						$idx = $row["idx"];
-						echo ("<tr class=\"color\"><td>" . $row["idx"] . "</td><td><a href=\"/board/read.php?id=" . $id . "&idx=" . $row["idx"] . "\">" . $row["title"] . "</a></td><td>"
+						echo ("<tr class=\"color\"><td>" . $row["idx"] . "</td><td>
+						<a href=\"/board/read.php?id=" . $id . "&idx=" . $row["idx"] . "&number=" . $number . "\">" . $row["title"] . "</a></td><td>"
 							  . $row["id"] . "</td><td>" . $row["date"] . "</td><td>" . $row["hit"] . "</td></tr>");
 						
 						 $title=$row["title"];
@@ -92,7 +96,7 @@
 		</table>
 		</div>
 	<div id="write_btn">
-                <?php echo "<a href=\"/board/write.php?id=$id" . "\"><button>글쓰기</button></a>"?>
+                <?php echo "<a href=\"/board/write.php?id=$id&number=$number" . "\"><button>글쓰기</button></a>"?>
               </div>
       </div>
     </body>
