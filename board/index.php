@@ -5,8 +5,11 @@
 	$conn -> query('set session character_set_client=utf8');
 
 	$id = $_COOKIE['id'];
+	$number = $_GET['number'];
 
-?>
+	$sql = "select title from problem_info where id=$number";
+	$title = mysqli_query($conn, $sql);
+?>	
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -26,7 +29,7 @@
 					if($_COOKIE['token'] == null){				
 						echo "<a href = '/login.php' class='top_right_label'>로그인</a><a href = '/register.php' class='top_right_label'>회원가입</a>";
 					}else{
-						echo "<span class = 'id_label'>$id</span><a href='./' onclick='logout()' class='top_right_label'>로그아웃</a>";		
+						echo "<span class = 'id_label'>$id</span><a href='./board/index.php' onclick='logout()' class='top_right_label'>로그아웃</a>";		
 					}
 				?>
 			</div>
@@ -38,8 +41,8 @@
 	
 	<div id="board_area">
     
-      <h1>자유게시판</h1>
-      <h4>자유롭게 글을 쓸 수 있는 게시판입니다.</h4>
+      <h1>Q&A for no.<?php echo $number; ?></h1>
+      <h4><?php echo $title?> 문제에 대해 질문하고 답하는 게시판입니다.</h4>
       <div id="search_box">
         <form action="search_result.php" method="get">
           <select name="catgo">
@@ -64,7 +67,7 @@
             </thead>
             <?php
              
-              $sql = "select * from board";
+              $sql = "select * from board where pro_id=$number";
               $result = mysqli_query($conn,$sql);
 
           
@@ -93,4 +96,13 @@
               </div>
       </div>
     </body>
+	<script>
+	function logout(){
+		let date = new Date();
+		date.setDate(date.getDate() - 100);
+		let Cookie = `token=;Expires=${date.toUTCString()}`+'domain=prog-coco.run.goorm.io;path=/;'
+		document.cookie = Cookie;
+		Cookie = `id=;Expires=${date.toUTCString()}`+'domain=prog-coco.run.goorm.io;path=/;'
+		document.cookie = Cookie;
+	}</script>
 </html>
