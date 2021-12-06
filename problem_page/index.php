@@ -7,9 +7,8 @@
 	$conn -> query('set session character_set_results=utf8');
 	$conn -> query('set session character_set_client=utf8');
 
-    $sql = "SELECT * FROM problem_info"; 
+    $sql = "SELECT * FROM problem_info";
 	$result = mysqli_query($conn,$sql);
-	
 
 ?>
 <html>
@@ -24,13 +23,12 @@
 		<a class = "main_top" href = "/">
 			<span style="color:gray;">Co</span><span class="title_right">ding</span>.<span style="color:gray;">Co</span><span class="title_right">mpiler</span>
 			<div class="top_right">
-				<?php
-				
+				<?php	
 					$id = $_COOKIE['id'];
 					if($_COOKIE['token'] == null){				
 						echo "<a href = '/login.php' class='top_right_label'>로그인</a><a href = '/register.php' class='top_right_label'>회원가입</a>";
 					}else{
-						echo "<span class = 'id_label'>$id</span><a href='./' onclick='logout()' class='top_right_label'>로그아웃</a>";		
+						echo "<span class = 'id_label'>$id</span><a href='./problem_page' onclick='logout()' class='top_right_label'>로그아웃</a>";		
 					}
 				?>
 			</div>
@@ -58,19 +56,26 @@
 			<tbody>
 				<div class="data">
 				<?php
-					$i = 0;
 				if(mysqli_num_rows($result)>0){
 					while($row = mysqli_fetch_assoc($result)){
 						$id = $row["id"];
-						if($i % 2 == 0)
-						echo ("<tr class=\"color\"><td>" . $row["id"] . "</td><td><a class=\"data\" href='/problem_page/pro_info.php?number=$id'>" . $row["title"] . "</a></td><td>" . $row["ans_people"] . "</td><td>" . $row["submits"] . "</td><td>" . $row["ans_pro"] . "</td></tr>");
-						else echo ("<tr><td>" . $row["id"] . "</td><td><a class=\"data\" href='/problem_page/pro_info.php?number=$id'>" . $row["title"] . "</a></td><td>" . $row["ans_people"] . "</td><td>" . $row["submits"] . "</td><td>" . $row["ans_pro"] . "</td></tr>");
-						$i ++;
+						echo ("<tr><td>" . $row["id"] . "</td><td><a class=\"data\" href='/problem_page/pro_info.php?number=$id'>" . $row["title"] . "</a></td><td>" . $row["ans_people"] . "</td><td>" . $row["submits"] . "</td><td>" . $row["ans_pro"] . "</td></tr>");
 					}
 				}
 				?>
-				</div></tbody></table>
-		
+				</div>
+			</tbody>
+		</table>
 	<br><br><br>
 </body>
+<script>
+	function logout(){
+		let date = new Date();
+		date.setDate(date.getDate() - 100);
+		let Cookie = `token=;Expires=${date.toUTCString()}`+'domain=prog-coco.run.goorm.io;path=/;'
+		document.cookie = Cookie;
+		Cookie = `id=;Expires=${date.toUTCString()}`+'domain=prog-coco.run.goorm.io;path=/;'
+		document.cookie = Cookie;
+	}	
+</script>
 </html>
