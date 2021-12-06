@@ -11,12 +11,16 @@
 
 	$id = $_COOKIE['id'];
 	$number = $_GET['number'];
+	$sql = "select title from problem_info where id=$number";
+	$main = mysqli_query($conn, $sql);
+	$main = mysqli_fetch_row($main)[0];
+	
 ?>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>CoCo</title>
-	<link href="../css/problem_table.css" rel="stylesheet" type="text/css" />
+	<link href="../css/board.css" rel="stylesheet" type="text/css" />
     <script src="//code.jquery.com/jquery.min.js"></script>
 </head>
 <body>
@@ -37,9 +41,20 @@
 			</div>
 	</div>
 	<div class="main">
+		<div class="main">
 		<div class="pro_button_block">
-			<a href="/problem_page" class="pro_button">문제 목록</a>
+			<a href="./" class="pro_button">문제 목록</a>
+			<a href="./pro_info.php?number=<?php echo $number?>" class = "pro_button current">문제 정보 (<?php echo $main?>)</a>
+			<a href="./pro_submit.php?number=<?php echo $number?>" class="pro_button">컴파일 & 제출</a>
+			<a href="./pro_my_submit.php?number=<?php echo $number?>" class="pro_button">내 제출</a>
+			<?php
+				if($correct_user){
+					echo '<a href="./correct_answer.php?number='.$number.'" class="pro_button">정답자</a>';				
+				}
+			?>
+			<a href="../board?number=<?php echo $number?>" class="pro_button">Q&A</a>
 		</div>
+	
     <div id="board_write">
         <h4>글을 작성하는 공간입니다.</h4>
             <div id="write_area">
@@ -52,10 +67,11 @@
                     <div id="in_content">
                         <textarea name="content" id="ucontent" placeholder="내용" required></textarea>
                     </div>
-                    <div class="bt_se">
+					<div class="bt_se">
                         <button type="submit">글 작성</button>
                     </div>
                 </form>
             </div>
 		</div></div>
 	</body>
+	</html>
