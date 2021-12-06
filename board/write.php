@@ -10,6 +10,7 @@
 	}
 
 	$id = $_COOKIE['id'];
+	
 ?>
 <html>
 <head>

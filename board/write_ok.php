@@ -15,9 +15,10 @@
 	$title = $_POST['title'];
 	$content = $_POST['content'];
 	$date = date('Y-m-d');
+	$id = $_GET['number'];
   
   if($id && $title && $content){
-      $sql = "insert into board(id,title,content,date) values('$id','$title','$content','$date')";
+      $sql = "insert into board(id,title,content,date,pro_id) values('$id','$title','$content','$date','$number')";
 	  $result = mysqli_query($conn,$sql);
       echo "<script>
       alert('글쓰기가 완료되었습니다.');
