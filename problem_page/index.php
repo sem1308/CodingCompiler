@@ -35,7 +35,7 @@
 		</a>
 	</div>
 	<br>
-		<div id="search_box" style="text-align: right; padding-bottom:15px;">
+		<div id="search_box" style="text-align: right;">
 			<form action="search_result.php" method="get">
 				<select name"category">
 					<option value"title">문제 제목</option>
@@ -47,25 +47,29 @@
 				</button>
 			</form>
 		</div>
-		<table style="width:70%">
-            <thead><tr><th style="width:10%">문제</th>
-				<th style="width:30%">문제 제목</th>
-				<th style="width:10%">맞힌 사람</th>
-				<th style="width:5%">제출</th>
-				<th style="width:5%">정답률</th></tr></thead>
+	<div style = "display:flex; justify-content:center; flex-direction:column; align-items:center">
+		<div style = " width:60.1%; display: inline-flex; box-shadow: 0 1px 4px 0px #b4b4b4;">
+			<div class = "thead" style="width:5%">No.</div>
+			<div class = "thead" style="width:65.1%">문제</div>
+			<div class = "thead" style="width:10%">정답</div>
+			<div class = "thead" style="width:10%">제출</div>
+			<div class = "thead" style="width:10%">정답률</div>
+		</div>
+		<table style="width:60%">
 			<tbody>
-				<div class="data">
 				<?php
 				if(mysqli_num_rows($result)>0){
 					while($row = mysqli_fetch_assoc($result)){
 						$id = $row["id"];
-						echo ("<tr><td>" . $row["id"] . "</td><td><a class=\"data\" href='/problem_page/pro_info.php?number=$id'>" . $row["title"] . "</a></td><td>" . $row["ans_people"] . "</td><td>" . $row["submits"] . "</td><td>" . $row["ans_pro"] . "</td></tr>");
+						echo ("<tr><td style='width:5%'>" . $row["id"] . "</td><td style='width:65%'><a class=\"data\" href='/problem_page/pro_info.php?number=$id'>" . $row["title"] . "</a></td><td style='width:10%'>" . $row["ans_people"] . "</td><td style='width:10%'>" . $row["submits"] . "</td><td style='width:10%'>" . $row["ans_pro"] . "%</td></tr>");
 					}
 				}
 				?>
-				</div>
 			</tbody>
 		</table>
+	</div>
+		
+		
 	<br><br><br>
 </body>
 <script>
