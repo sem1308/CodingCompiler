@@ -8,14 +8,18 @@
 		$prevPage = "../login.php";
 		header('location:'.$prevPage);
 	}
-
+	
+	$number = $_GET['number'];
+	$sql = "select title from problem_info where id=$number";
+	$main = mysqli_query($conn, $sql);
+	$main = mysqli_fetch_row($main)[0];
 
 ?>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>CoCo</title>
-	<link href="../css/problem_table.css" rel="stylesheet" type="text/css" />
+	<link href="../css/board.css" rel="stylesheet" type="text/css" />
     <script src="//code.jquery.com/jquery.min.js"></script>
 </head>
 <body>
@@ -36,6 +40,19 @@
 				?>
 			</div>
 	</div>
+	<div class="main">
+		<div class="pro_button_block">
+			<a href="./" class="pro_button">문제 목록</a>
+			<a href="./pro_info.php?number=<?php echo $number?>" class = "pro_button">문제 정보 (<?php echo $main?>)</a>
+			<a href="./pro_submit.php?number=<?php echo $number?>" class="pro_button">컴파일 & 제출</a>
+			<a href="./pro_my_submit.php?number=<?php echo $number?>" class="pro_button">내 제출</a>
+			<?php
+				if($correct_user){
+					echo '<a href="./correct_answer.php?number='.$number.'" class="pro_button">정답자</a>';				
+				}
+			?>
+			<a href="../board?number=<?php echo $number?>" class="pro_button current">Q&A</a>
+		</div>
     <?php
     	
 	
@@ -53,8 +70,8 @@
 		$result = mysqli_query($conn, $sql); /* 받아온 idx값을 선택 */
         $row = mysqli_fetch_assoc($result)
     ?>
-<!-- 글 불러오기 -->
-  <div id="board_read">
+		<div class="board_place">
+			<div id="board_read">
        <h2><?php echo $row['title']; ?></h2>
            <div id="user_info" align=right>
                   <?php echo $row['id']; ?> <?php echo $row['date']; ?> 조회:<?php echo $row['hit']; ?>
@@ -108,5 +125,9 @@
     </div>
 </div><!--- 댓글 불러오기 끝 -->
 	<div id="foot_box"></div>
+		</div>
+<!-- 글 불러오기 -->
+		
+  
 </body>
 </html>

@@ -11,13 +11,20 @@
 	$main = mysqli_query($conn, $sql);
 	$main = mysqli_fetch_row($main)[0];
 	
-	
+	# 정답자인지 확인
+	$id = $_COOKIE['id'];
+	$correct_user=false;
+	$sql = "SELECT is_correct FROM users_submits WHERE id = \"$id\" AND pro_id = $number AND is_correct=1"; 
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0) {
+		$correct_user = true;
+	}
 ?>	
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>CoCo</title>
-	<link href="../css/problem_table.css" rel="stylesheet" type="text/css" />
+	<link href="../css/board.css" rel="stylesheet" type="text/css" />
     <script src="//code.jquery.com/jquery.min.js"></script>
 </head>
 <body>
@@ -39,7 +46,16 @@
 	</div>
 	<div class="main">
 		<div class="pro_button_block">
-			<a href="/problem_page" class="pro_button">문제 목록</a>
+			<a href="/problem_page/index.php" class="pro_button">문제 목록</a>
+			<a href="/problem_page/pro_info.php?number=<?php echo $number?>" class = "pro_button">문제 정보 (<?php echo $main?>)</a>
+			<a href="/problem_page/pro_submit.php?number=<?php echo $number?>" class="pro_button">컴파일 & 제출</a>
+			<div href="/problem_page/pro_my_submit.php?number=<?php echo $number?>" class="pro_button">내 제출</div>
+			<?php
+				if($correct_user){
+					echo '<a href="problem_page/correct_answer.php?number='.$number.'" class="pro_button">정답자</a>';				
+				}
+			?>
+			<a href="../board?number=<?php echo $number?>" class="pro_button current">Q&A</a>
 		</div>
 	
 	<div id="board_area">
@@ -72,13 +88,14 @@
              
               $sql = "select * from board where pro_id=$number";
               $result = mysqli_query($conn,$sql);
-
+	
           
-					
+					$i = 1;
 				if(mysqli_num_rows($result)>0){
 					while($row = mysqli_fetch_assoc($result)){
 						$idx = $row["idx"];
-						echo ("<tr class=\"color\"><td>" . $row["idx"] . "</td><td>
+						
+						echo ("<tr class=\"color\"><td>" . $i . "</td><td>
 						<a href=\"/board/read.php?id=" . $id . "&idx=" . $row["idx"] . "&number=" . $number . "\">" . $row["title"] . "</a></td><td>"
 							  . $row["id"] . "</td><td>" . $row["date"] . "</td><td>" . $row["hit"] . "</td></tr>");
 						
@@ -88,17 +105,20 @@
                     //title이 30을 넘어서면 ...표시
                     $title=str_replace($row["title"],mb_substr($row["title"],0,30,"utf-8")."...",$row["title"]);
                   }
+						$i++;
 					}
 				}
 			
 				?>
                 
 		</table>
-		</div>
-	<div id="write_btn">
+		<div id="write_btn">
                 <?php echo "<a href=\"/board/write.php?id=$id&number=$number" . "\"><button>글쓰기</button></a>"?>
               </div>
+		</div>
+	
       </div>
+	
     </body>
 	<script>
 	function logout(){
