@@ -118,7 +118,7 @@
 					echo '<a href="./correct_answer.php?number='.$number.'" class="pro_button">정답자</a>';				
 				}
 			?>
-			<a class="pro_button">Q&A</a>
+			<a href="../board?number=<?php echo $number?>" class="pro_button">Q&A</a>
 		</div>
 		<div class="pro_main">
 			<div class = "code_submit_block">

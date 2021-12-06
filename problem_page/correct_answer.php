@@ -100,7 +100,7 @@
 			<a href="./pro_submit.php?number=<?php echo $number?>" class="pro_button">컴파일 & 제출</a>
 			<a href="./pro_my_submit.php?number=<?php echo $number?>" class="pro_button">내 제출</a>
 			<a href="./correct_answer.php?number=<?php echo $number?>" class="pro_button current">정답자</a>
-			<a class="pro_button">Q&A</a>
+			<a href="../board?number=<?php echo $number?>" class="pro_button">Q&A</a>
 		</div>
 		<div class = "table_block">
 			<div class = "pro_title"><?php echo $title?></div>
