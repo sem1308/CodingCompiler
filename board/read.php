@@ -27,6 +27,7 @@
 				<?php
 				
 					$id = $_COOKIE['id'];
+					$number = $_GET['number'];
 					if($_COOKIE['token'] == null){				
 						echo "<a href = '/login.php' class='top_right_label'>로그인</a><a href = '/register.php' class='top_right_label'>회원가입</a>";
 					}else{
@@ -67,7 +68,7 @@
  
        <div>
              <ul>
-                    <?php echo "<li><a href=\"board?id=$id\">[목록으로]</a></li>" ?>
+                    <?php echo "<li><a href=\"board?number=$number\">[목록으로]</a></li>" ?>
               <!-- <? if ($row['id']==$_COOKIE['id']){?>
                     <li><a href="/board/modify.php?idx=<?php echo $row['idx']; ?>">[수정]</a></li>
                     <li><a href="/board/delete.php?idx=<?php echo $row['idx']; ?>">[삭제]</a></li>

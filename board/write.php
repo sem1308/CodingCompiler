@@ -10,7 +10,7 @@
 	}
 
 	$id = $_COOKIE['id'];
-	
+	$number = $_GET['number'];
 ?>
 <html>
 <head>
@@ -43,7 +43,7 @@
     <div id="board_write">
         <h4>글을 작성하는 공간입니다.</h4>
             <div id="write_area">
-                <form enctype="multipart/form-data" action="/board/write_ok.php?id=<?php echo $id;?>" method="post">
+                <form enctype="multipart/form-data" action="/board/write_ok.php?id=<?php echo $id;?>&number=<?php echo $number;?>" method="post">
                     <div id="in_title">
                         <textarea name="title" id="utitle" rows="1" cols="55" placeholder="제목" maxlength="100" required></textarea>
                     </div>
