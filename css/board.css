@@ -15,6 +15,61 @@
   }
 }
 
+.board_block{
+	width:90%;
+	margin: 60px auto;
+}
+
+.re_bt{
+	float:right;
+	position:absolute;
+	right:0;
+	top:100px;
+}
+
+.reply_content{
+	height:100px;
+	width:100%;
+}
+
+#user_info{
+	padding: 10px 0;
+	margin-bottom: 30px;
+}
+
+#bo_content{
+	padding:30px;
+	border: 1px solid #ddd;
+}
+
+.search_btn{
+	margin-left: 10px;
+	float: none;
+	padding:5px;
+}
+
+.board_btn{
+	font-family: 'NanumSquareRound';
+    background-color: #4BAF4B;
+    font-size: 14px;
+    color: white;
+    padding: 9px;
+	outline:none;
+	border:none;
+    border-radius: 10%;
+    box-shadow: 0px 2px 4px 0 #828282;
+    transition-duration: 0.2s;
+}
+
+.board_btn:hover{
+	background-color:#147814;
+}
+
+.search_btn:hover{
+	background-color:#147814;
+}
+
+
 .header{
     max-width: 100%;
     background: #fff;
@@ -285,15 +340,44 @@ li{
 	position : static;
 }
 
+#write_area{
+	width:90%;
+	height:1000px;
+	margin: 70px auto;
+}
+
+.write_block{
+	margin-top: 100px;
+	display:flex;
+	justify-content:center;
+}
+
 #board_write {
 	width: 85%;
 	position: relative;
 }
 
-.board_place{
-	width: 85%;
-	padding: 20px;
+#utitle{
+	border-bottom:none;
+	width:500px;
 }
 
+#ucontent{
+	width:1000px;
+	height:300px;
+}
 
+.board_place{
+	width: 85%;
+}
+
+textarea, button, input{
+	outline:none;
+	resize:none;
+	padding: 10px;
+}
+
+th, td{
+	padding: 10px;
+}
 

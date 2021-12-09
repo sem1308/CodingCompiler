@@ -54,9 +54,7 @@
 			<a href="../board?number=<?php echo $number?>" class="pro_button current">Q&A</a>
 		</div>
     <?php
-    	
-	
-	
+    
         $bno = $_GET['idx']; /* bno함수에 idx값을 받아와 넣음*/
 		$sqlhit = "select * from board where idx ='$bno'";
 		$resulthit = mysqli_query($conn, $sqlhit);
@@ -71,9 +69,11 @@
         $row = mysqli_fetch_assoc($result)
     ?>
 		<div class="board_place">
+			<div class="board_block">
+				
 			<div id="board_read">
        <h2><?php echo $row['title']; ?></h2>
-           <div id="user_info" align=right>
+           <div id="user_info">
                   <?php echo $row['id']; ?> <?php echo $row['date']; ?> 조회:<?php echo $row['hit']; ?>
                     <div id="bo_line"></div>
             </div>
@@ -83,7 +83,7 @@
  
     <!-- 목록, 수정, 삭제 -->
  
-       <div>
+       <div align="right">
              <ul>
                     <?php echo "<li><a href=\"board?number=$number\">[목록으로]</a></li>" ?>
               <!-- <? if ($row['id']==$_COOKIE['id']){?>
@@ -115,18 +115,22 @@
  
     <!--- 댓글 입력 폼 -->
     <div class="dap_ins">
-        <?php echo "<form action=\"/board/read_ok.php?id=$id&idx=$bno\" method=\"post\"" ?>
-            <input type="hidden" name="dat_user" id="dat_user" class="dat_user" size="15" placeholder="아이디" value=<?php $_COOKIE['id']?>>
-            <div style="margin-top:10px;">
+		<hr>
+		<label>댓글 작성</label>
+        <form action="/board/read_ok.php?id=<?php echo $id?>&idx=<?php echo $bno?>" method="post">
+            <input type="hidden" name="dat_user" id="dat_user" class="dat_user" size="15" placeholder="아이디" value='<?php echo $_COOKIE['id'] ?>'>
+            <div style="margin-top:10px; position:relative; width: 20%;">
                 <textarea name="content" class="reply_content" id="re_content" ></textarea>
-                <button id="rep_bt" class="re_bt">확인</button>
-		</div>
+				<button id="rep_bt" class="re_bt">확인</button>
+			</div>
         </form>
     </div>
+	</div>
 </div><!--- 댓글 불러오기 끝 -->
 	<div id="foot_box"></div>
-		</div>
+</div>
 <!-- 글 불러오기 -->
+</div>
 		
   
 </body>
