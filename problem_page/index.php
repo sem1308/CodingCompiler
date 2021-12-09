@@ -35,18 +35,6 @@
 		</a>
 	</div>
 	<br>
-		<div id="search_box" style="text-align: right;">
-			<form action="search_result.php" method="get">
-				<select name"category">
-					<option value"title">문제 제목</option>
-					<option value"ans_pro">정답률</option>
-				</select>
-				<input type"text" name"search" size="20" required="requird">
-				<button class="btn btn-primary">
-					검색
-				</button>
-			</form>
-		</div>
 	<div style = "display:flex; justify-content:center; flex-direction:column; align-items:center">
 		<div style = " width:60.1%; display: inline-flex; box-shadow: 0 1px 4px 0px #b4b4b4;">
 			<div class = "thead" style="width:5%">No.</div>

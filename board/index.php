@@ -49,7 +49,7 @@
 			<a href="/problem_page/index.php" class="pro_button">문제 목록</a>
 			<a href="/problem_page/pro_info.php?number=<?php echo $number?>" class = "pro_button">문제 정보 (<?php echo $main?>)</a>
 			<a href="/problem_page/pro_submit.php?number=<?php echo $number?>" class="pro_button">컴파일 & 제출</a>
-			<div href="/problem_page/pro_my_submit.php?number=<?php echo $number?>" class="pro_button">내 제출</div>
+			<a href="/problem_page/pro_my_submit.php?number=<?php echo $number?>" class="pro_button">내 제출</a>
 			<?php
 				if($correct_user){
 					echo '<a href="problem_page/correct_answer.php?number='.$number.'" class="pro_button">정답자</a>';				
@@ -62,16 +62,6 @@
     
       <h1>Q&A for no.<?php echo $number; ?></h1>
       <h4><?php echo $main; ?> 문제에 대해 질문하고 답하는 게시판입니다.</h4>
-      <div id="search_box">
-        <form action="search_result.php" method="get">
-          <select name="catgo">
-            <option value="title">제목</option>
-            <option value="name">글쓴이</option>
-            <option value="content">내용</option>
-          </select>
-          <input type="text" name="search" size="40" required="required" /> <button>검색</button>
-        </form>
-      </div>
       
  
         <table class="list-table">
@@ -85,8 +75,7 @@
                 </tr>
             </thead>
             <?php
-             
-              $sql = "select * from board where pro_id=$number";
+			  $sql = "select * from board where pro_id=$number";
               $result = mysqli_query($conn,$sql);
 	
           
