@@ -73,7 +73,10 @@
         </form>
       </div>
       
- 
+		<?php
+ 	  $catagory = $_GET['catgo'];
+	  $search_con = $_GET['search'];
+			  ?>
         <table class="list-table">
           <thead>
               <tr>
@@ -85,7 +88,7 @@
                 </tr>
             </thead>
             <?php
-			  $sql = "select * from board where pro_id=$number";
+			  $sql = "select * from board where $catagory like '%$search_con%' order by idx desc";
               $result = mysqli_query($conn,$sql);
 	
           

@@ -42,13 +42,13 @@
 	</div>
 	<div class="main">
 		<div class="pro_button_block">
-			<a href="./" class="pro_button">문제 목록</a>
-			<a href="./pro_info.php?number=<?php echo $number?>" class = "pro_button">문제 정보 (<?php echo $main?>)</a>
-			<a href="./pro_submit.php?number=<?php echo $number?>" class="pro_button">컴파일 & 제출</a>
-			<a href="./pro_my_submit.php?number=<?php echo $number?>" class="pro_button">내 제출</a>
+			<a href="/problem_page/index.php" class="pro_button">문제 목록</a>
+			<a href="/problem_page/pro_info.php?number=<?php echo $number?>" class = "pro_button">문제 정보 (<?php echo $main?>)</a>
+			<a href="/problem_page/pro_submit.php?number=<?php echo $number?>" class="pro_button">컴파일 & 제출</a>
+			<a href="/problem_page/pro_my_submit.php?number=<?php echo $number?>" class="pro_button">내 제출</a>
 			<?php
 				if($correct_user){
-					echo '<a href="./correct_answer.php?number='.$number.'" class="pro_button">정답자</a>';				
+					echo '<a href="/problem_page/correct_answer.php?number='.$number.'" class="pro_button">정답자</a>';				
 				}
 			?>
 			<a href="../board?number=<?php echo $number?>" class="pro_button current">Q&A</a>
