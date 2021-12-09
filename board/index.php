@@ -59,61 +59,64 @@
 		</div>
 	
 	<div id="board_area">
-    
-      <h1>Q&A for no.<?php echo $number; ?></h1>
-      <h4><?php echo $main; ?> 문제에 대해 질문하고 답하는 게시판입니다.</h4>
-      <div id="search_box">
-        <form action="/board/search_result.php?number=<?php echo $number?>" method="get">
-          <select name="catgo">
-            <option value="title">제목</option>
-            <option value="name">글쓴이</option>
-            <option value="content">내용</option>
-          </select>
-          <input type="text" name="search" size="40" required="required" /> <button>검색</button>
-        </form>
-      </div>
-      
- 
-        <table class="list-table">
-          <thead>
-              <tr>
-                  <th width="70">번호</th>
-                    <th width="500">제목</th>
-                    <th width="120">글쓴이</th>
-				  	<th width="100">작성일</th>
-                    <th width="100">조회수</th>
-                </tr>
-            </thead>
-            <?php
-			  $sql = "select * from board where pro_id=$number";
-              $result = mysqli_query($conn,$sql);
-	
-          
-					$i = 1;
-				if(mysqli_num_rows($result)>0){
-					while($row = mysqli_fetch_assoc($result)){
-						$idx = $row["idx"];
-						
-						echo ("<tr class=\"color\"><td>" . $i . "</td><td>
-						<a href=\"/board/read.php?id=" . $id . "&idx=" . $row["idx"] . "&number=" . $number . "\">" . $row["title"] . "</a></td><td>"
-							  . $row["id"] . "</td><td>" . $row["date"] . "</td><td>" . $row["hit"] . "</td></tr>");
-						
-						 $title=$row["title"];
-                  if(strlen($title)>30)
-                  {
-                    //title이 30을 넘어서면 ...표시
-                    $title=str_replace($row["title"],mb_substr($row["title"],0,30,"utf-8")."...",$row["title"]);
-                  }
-						$i++;
-					}
-				}
+		<div class = "board_block">
+			<h1>Q&A for no.<?php echo $number; ?></h1>
+			<h4><?php echo $main; ?> 문제에 대해 질문하고 답하는 게시판입니다.</h4>
+			<div id="search_box">
+				<form action="/board/search_result.php?number=<?php echo $number?>" method="get">
+				  <select name="catgo" style="padding: 5px; outline:none">
+					<option value="title">제목</option>
+					<option value="name">글쓴이</option>
+					<option value="content">내용</option>
+				  </select>
+				  <input type="text" name="search" size="40" required="required" style="padding:4px; outline:none"/> <button class = "search_btn board_btn">검색</button>
+				</form>
+			  </div>
+
+
+				<table class="list-table">
+				  <thead>
+					  <tr>
+						  <th width="70">번호</th>
+							<th width="500">제목</th>
+							<th width="120">글쓴이</th>
+							<th width="100">작성일</th>
+							<th width="100">조회수</th>
+						</tr>
+					</thead>
+					<?php
+					  $sql = "select * from board where pro_id=$number";
+					  $result = mysqli_query($conn,$sql);
+
+
+							$i = 1;
+						if(mysqli_num_rows($result)>0){
+							while($row = mysqli_fetch_assoc($result)){
+								$idx = $row["idx"];
+
+								echo ("<tr class=\"color\"><td>" . $i . "</td><td>
+								<a href=\"/board/read.php?id=" . $id . "&idx=" . $row["idx"] . "&number=" . $number . "\">" . $row["title"] . "</a></td><td>"
+									  . $row["id"] . "</td><td>" . $row["date"] . "</td><td>" . $row["hit"] . "</td></tr>");
+
+								 $title=$row["title"];
+						  if(strlen($title)>30)
+						  {
+							//title이 30을 넘어서면 ...표시
+							$title=str_replace($row["title"],mb_substr($row["title"],0,30,"utf-8")."...",$row["title"]);
+						  }
+								$i++;
+							}
+						}
+
+						?>
+
+				</table>
+				<div id="write_btn">
+						<?php echo "<a href=\"/board/write.php?id=$id&number=$number" . "\"><button class = 'board_btn'>글쓰기</button></a>"?>
+					  </div>
 			
-				?>
-                
-		</table>
-		<div id="write_btn">
-                <?php echo "<a href=\"/board/write.php?id=$id&number=$number" . "\"><button>글쓰기</button></a>"?>
-              </div>
+		</div>
+      
 		</div>
 	
       </div>
