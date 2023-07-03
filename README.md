@@ -27,14 +27,14 @@
 ![](image/copy.png)
 
 #### 컴파일, 제출
-![img.png](image/compile_submit.png)
-![img.png](image/compile_ex.png)
+![](image/compile_submit.png)
+![](image/compile_ex.png)
 
 #### 내제출
-![img.png](image/my_submit.png)
+![](image/my_submit.png)
 
 #### 정답자
-![img.png](image/answer_submit.png)
+![](image/answer_submit.png)
 
 #### Q&A
 ![](image/QnA.png)
